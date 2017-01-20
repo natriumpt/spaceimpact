@@ -11,6 +11,13 @@ abstract public class Ships implements Movable {
     private int posY;
     private int speed;
 
+    public Ships(int posX, int posY, int width, int height){
+        this.posX = posX;
+        this.posY = posY;
+        this.width = width;
+        this.height = height;
+    }
+
     public Ships(int posX, int posY, int width, int height, int speed, int hitPoints) {
         this.posX = posX;
         this.posY = posY;
@@ -28,6 +35,14 @@ abstract public class Ships implements Movable {
     @Override
     public int getPosY() {
         return posY;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 
     @Override

@@ -42,7 +42,7 @@ public class Projectile implements Movable {
     }
 
     @Override
-    public void move() {
+    public void move(MoveDirection direction) {
 
     }
 

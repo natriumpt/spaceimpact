@@ -17,7 +17,7 @@ public class Enemy extends Ships {
     }
 
     @Override
-    public void move() {
+    public void move(MoveDirection direction) {
 
     }
 

@@ -12,8 +12,21 @@ public class Player extends Ships {
 
 
     @Override
-    public void move() {
-
+    public void move(MoveDirection direction) {
+        switch (direction) {
+            case UP:
+                setPosY(getPosY() - getSpeed());
+                break;
+            case DOWN:
+                setPosY(getPosY() + getSpeed());
+                break;
+            case LEFT:
+                setPosX(getPosX() - getSpeed());
+                break;
+            case RIGHT:
+                setPosX(getPosX() + getSpeed());
+                break;
+        }
     }
 
     @Override
