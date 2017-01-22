@@ -1,13 +1,10 @@
 package org.academiadecodigo.bootcamp.spaceimpact.simplegfx;
 
-public class SimpleGfxField extends SimpleGfxRepresentable {
-    @Override
-    public int getX() {
-        return 0;
-    }
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-    @Override
-    public int getY() {
-        return 0;
+public class SimpleGfxField extends SimpleGfxRepresentable {
+
+    public SimpleGfxField(Picture picture) {
+        super(picture);
     }
 }

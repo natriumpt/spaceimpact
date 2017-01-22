@@ -10,11 +10,11 @@ public abstract class Ship extends MovableGameObject {
         super(representation);
     }
 
-    public void fire(){
+    public void fire() {
 
     }
 
-    public void hit(){
+    public void hit() {
 
     }
 

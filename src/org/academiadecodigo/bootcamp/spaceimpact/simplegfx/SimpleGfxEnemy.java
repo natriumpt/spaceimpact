@@ -1,18 +1,12 @@
 package org.academiadecodigo.bootcamp.spaceimpact.simplegfx;
 
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 public class SimpleGfxEnemy extends SimpleGfxMovableRepresentable {
-    @Override
-    public int getX() {
-        return 0;
+
+
+    public SimpleGfxEnemy(Picture picture) {
+        super(picture);
     }
 
-    @Override
-    public int getY() {
-        return 0;
-    }
-
-    @Override
-    public void move(int dx, int dy) {
-
-    }
 }

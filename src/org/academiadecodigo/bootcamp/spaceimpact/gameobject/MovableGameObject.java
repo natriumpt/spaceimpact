@@ -11,8 +11,18 @@ public abstract class MovableGameObject extends GameObject {
         super(representation);
     }
 
-    public void move(int dx, int dy){
-        ((MovableRepresentable) getRepresentation()).move(dx, dy);
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void move(int dx, int dy) {
+        //((MovableRepresentable) getRepresentation()).move(dx, dy);
+        setX(getX() + dx);
+        setY(getY() + dy);
     }
 
 }

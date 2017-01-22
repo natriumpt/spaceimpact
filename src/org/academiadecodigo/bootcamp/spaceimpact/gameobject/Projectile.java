@@ -10,4 +10,8 @@ public class Projectile extends MovableGameObject {
         super(representation);
     }
 
+    public void projectileMove(MoveDirection moveDirection){
+
+    }
+
 }
