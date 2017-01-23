@@ -13,10 +13,15 @@ public class SimpleGfxRepresentableFactory implements RepresentableFactory {
         switch (type) {
             case PLAYER:
                 representation = new SimpleGfxPlayer(x,y);
+                break;
             case ENEMY:
+                representation = new SimpleGfxEnemy();
                 break;
             case FIELD:
+                representation = new SimpleGfxField();
                 break;
+            case PROJECTILE:
+                representation = new SimpleGfxProjectile()
         }
 
         return representation;
