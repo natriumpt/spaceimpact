@@ -5,7 +5,7 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.RepresentableFactory;
 
 public class SimpleGfxRepresentableFactory implements RepresentableFactory {
-    @Override
+
     public Representable createRepresentation(GameObjectType type, int x, int y) {
 
         Representable representation = null;
@@ -22,4 +22,9 @@ public class SimpleGfxRepresentableFactory implements RepresentableFactory {
         return representation;
     }
 
+
+    @Override
+    public Representable createRepresentation(GameObjectType type) {
+        return null;
+    }
 }
