@@ -5,10 +5,24 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 public class Player extends Ship {
 
     private int lives;
+    private int fireBuffer;
 
     public Player(Representable representation) {
         super(representation);
         setSpeed(200);
+    }
+
+    @Override
+    public void fire() {
+        if (fireBuffer == 0) {
+            // TODO: Create new projectiles and decide where the fuck to put them
+
+            fireBuffer = 10;
+        }
+    }
+
+    public void decreaseFireBuffer() {
+        if (fireBuffer > 0)  fireBuffer--;
     }
 
     public void playerMove(MoveDirection moveDirection) {
