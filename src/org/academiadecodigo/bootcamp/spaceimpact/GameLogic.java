@@ -14,8 +14,9 @@ public class GameLogic {
     private Field field;
 
 
-    public GameLogic(GameObjectFactory gameObjectFactory) {
+    public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
         this.gameObjectFactory = gameObjectFactory;
+        this.projectileFactory = projectileFactory;
     }
 
 
@@ -26,11 +27,11 @@ public class GameLogic {
         /* The below declarations are not final
             Missing initialization properties for player && field */
 
-        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER);
+        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, projectileFactory);
         field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD);
         enemies = new Enemy[ENEMY_LIMIT];
         projectiles = new Projectile[PROJECTILE_LIMIT];
-
+        projectileFactory.setProjectileArray(projectiles);
 
         while (true) {
 
@@ -65,12 +66,12 @@ public class GameLogic {
                 }
             }
 
+            // TODO: Collision detection
 
             Thread.sleep(33); // Pauses the thread every 1/30th of a second
         }
 
     }
-
 
     // TODO: this should be checked by the collision detector
     public boolean checkFieldLimits(Projectile p) {

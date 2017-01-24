@@ -1,9 +1,6 @@
 package org.academiadecodigo.bootcamp.spaceimpact;
 
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Field;
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.GameObjectFactory;
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.MoveDirection;
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Projectile;
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.RepresentableFactory;
 
@@ -12,7 +9,7 @@ public class Main {
 
         RepresentableFactory representableFactory = null; // = new SimpleGfxRepresentableFactory();
 
-        GameLogic g = new GameLogic(new GameObjectFactory(representableFactory));
+        GameLogic g = new GameLogic(new GameObjectFactory(representableFactory), new ProjectileFactory(representableFactory));
         g.start();
 
 

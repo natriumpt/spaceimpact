@@ -17,20 +17,28 @@ public class Projectile extends MovableGameObject {
     }
 
     public void projectileMove(MoveDirection moveDirection) {
-
-        switch (moveDirection) {
-
-            case RIGHT:
-                move(getSpeed(), 0);
-                break;
-            case LEFT:
-                move(-getSpeed(), 0);
-                break;
-            default:
-                System.out.println("Shit happened");
-
+        if (friendly) {
+            move(getSpeed(), 0);
+        } else {
+            move(-getSpeed(), 0);
         }
-
     }
 
 }
+
+//    public void projectileMove(MoveDirection moveDirection) {
+//
+//        switch (moveDirection) {
+//
+//            case RIGHT:
+//                move(getSpeed(), 0);
+//                break;
+//            case LEFT:
+//                move(-getSpeed(), 0);
+//                break;
+//            default:
+//                System.out.println("Shit happened");
+//
+//        }
+//
+//    }

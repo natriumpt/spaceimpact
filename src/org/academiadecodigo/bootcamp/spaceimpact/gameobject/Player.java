@@ -17,7 +17,7 @@ public class Player extends Ship {
     @Override
     public void fire() {
         if (fireBuffer == 0) {
-            // TODO: Special method for projectile creation needed
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE,true,100);
             fireBuffer = 10;
         }
     }
