@@ -12,7 +12,7 @@ public class SimpleGfxPlayer extends SimpleGfxMovableRepresentable implements Ke
     Keyboard k;
 
     public SimpleGfxPlayer(int x, int y) {
-        super(new Picture(x,y,"space_ship02.gif"));
+        super(new Picture(x,y,"playership.png"));
         initializeKeyboard();
     }
 

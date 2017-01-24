@@ -4,7 +4,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class SimpleGfxField extends SimpleGfxRepresentable {
 
-    public SimpleGfxField(Picture picture) {
-        super(picture);
+    public SimpleGfxField(int x, int y) {
+        super(new Picture(x,y,"playership.png"));
     }
 }
