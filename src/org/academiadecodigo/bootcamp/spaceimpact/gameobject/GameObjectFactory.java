@@ -26,6 +26,8 @@ public class GameObjectFactory {
             case FIELD:
                 gameObject = new Field((Representable) representableFactory.createRepresentation(type));
                 break;
+            case PROJECTILE:
+                gameObject = new Projectile((Representable) representableFactory.createRepresentation(type));
         }
 
         return gameObject;

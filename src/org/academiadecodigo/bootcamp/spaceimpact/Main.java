@@ -6,10 +6,6 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.MoveDirection;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Projectile;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.RepresentableFactory;
-import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxField;
-import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxMovableRepresentable;
-import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxPlayer;
-import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxRepresentable;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
