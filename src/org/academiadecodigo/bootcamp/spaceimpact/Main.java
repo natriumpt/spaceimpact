@@ -1,13 +1,13 @@
 package org.academiadecodigo.bootcamp.spaceimpact;
 
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.RepresentableFactory;
+import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxRepresentableFactory;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        RepresentableFactory representableFactory = null; // = new SimpleGfxRepresentableFactory();
+        RepresentableFactory representableFactory = new SimpleGfxRepresentableFactory();
 
         GameLogic g = new GameLogic(new GameObjectFactory(representableFactory), new ProjectileFactory(representableFactory));
         g.start();
