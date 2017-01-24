@@ -26,9 +26,8 @@ public class GameLogic {
 
         /* The below declarations are not final
             Missing initialization properties for player && field */
-
-        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, projectileFactory);
         field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD);
+        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, projectileFactory);
         enemies = new Enemy[ENEMY_LIMIT];
         projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);

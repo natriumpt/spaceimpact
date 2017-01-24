@@ -1,6 +1,5 @@
 package org.academiadecodigo.bootcamp.spaceimpact.simplegfx;
 
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Player;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -38,6 +37,7 @@ public class SimpleGfxPlayer extends SimpleGfxMovableRepresentable implements Ke
         pressRight.setKey(KeyboardEvent.KEY_D);
         pressRight.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         k.addEventListener(pressRight);
+
     }
 
     @Override
@@ -61,6 +61,8 @@ public class SimpleGfxPlayer extends SimpleGfxMovableRepresentable implements Ke
                 this.move(10,0);
                 System.out.println("Pressed D");
                 break;
+
+
 
         }
     }

@@ -8,8 +8,8 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class SimpleGfxProjectile extends SimpleGfxMovableRepresentable{
 
 
-    public SimpleGfxProjectile(Picture picture){
-        super(picture);
+    public SimpleGfxProjectile(int x, int y){
+        super(new Picture(x,y,""));
 
     }
 }

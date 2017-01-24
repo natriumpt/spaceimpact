@@ -6,7 +6,11 @@ public class SimpleGfxEnemy extends SimpleGfxMovableRepresentable {
 
 
     public SimpleGfxEnemy(int x,int y) {
-        super(new Picture(x,y,"playership.png"));
+        super(new Picture(x,y,""));
+    }
+
+    public void move(int x, int y){
+        super.move(x,y);
     }
 
 }
