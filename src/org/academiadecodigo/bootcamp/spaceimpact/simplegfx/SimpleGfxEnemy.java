@@ -5,8 +5,8 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class SimpleGfxEnemy extends SimpleGfxMovableRepresentable {
 
 
-    public SimpleGfxEnemy(Picture picture) {
-        super(picture);
+    public SimpleGfxEnemy(int x,int y) {
+        super(new Picture(x,y,"playership.png"));
     }
 
 }
