@@ -15,8 +15,7 @@ public class Player extends Ship {
     @Override
     public void fire() {
         if (fireBuffer == 0) {
-            // TODO: Create new projectiles and decide where the fuck to put them
-
+            // TODO: Special method for projectile creation needed
             fireBuffer = 10;
         }
     }

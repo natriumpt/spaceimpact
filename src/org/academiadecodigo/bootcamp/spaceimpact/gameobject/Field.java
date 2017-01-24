@@ -11,10 +11,15 @@ public class Field extends GameObject {
 
     public Field(Representable representation) {
         super(representation);
-        setField(10,10,10,10, 5);
+        this.x = 0;
+        this.y = 0;
+        this.w = 720;
+        this.h = 480;
+
     }
 
-    private void setField(int x, int y, int w, int h, int PADDING){
+    public Field(Representable representation, int x, int y, int w, int h) {
+        super(representation);
         this.x = x;
         this.y = y;
         this.w = w;
@@ -22,8 +27,12 @@ public class Field extends GameObject {
 
     }
 
-    public int getW() { return w;}
+    public int getW() {
+        return w;
+    }
 
-    public int getH() { return h;}
+    public int getH() {
+        return h;
+    }
 
 }

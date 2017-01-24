@@ -12,8 +12,6 @@ public class GameLogic {
     private Field field;
 
     private int enemyLimit;
-    private int projectileCounter;
-    private int projectileLimit;
 
 
     public GameLogic(GameObjectFactory gameObjectFactory) {
@@ -26,8 +24,7 @@ public class GameLogic {
         // TODO: Create instances for permanent objects (i.e. player, field)
 
         /* The below declarations are not final
-        * Missing initialization properties for player && field
-        */
+            Missing initialization properties for player && field */
 
         player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER);
         field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD);
@@ -66,11 +63,6 @@ public class GameLogic {
             Thread.sleep(33); // Pauses the thread every 1/30th of a second
         }
 
-    }
-
-    public void addProjectile(Projectile projectile) {
-        projectiles[projectileCounter] = projectile;
-        projectileCounter++;
     }
 
 }
