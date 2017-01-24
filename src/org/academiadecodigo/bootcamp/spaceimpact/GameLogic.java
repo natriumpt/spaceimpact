@@ -4,14 +4,14 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
 
 public class GameLogic {
 
+    private static final int PROJECTILE_LIMIT = 100;
+    private static final int ENEMY_LIMIT = 25;
     private GameObjectFactory gameObjectFactory;
-
+    private ProjectileFactory projectileFactory;
     private Player player;
     private Enemy[] enemies;
     private Projectile[] projectiles;
     private Field field;
-
-    private int enemyLimit;
 
 
     public GameLogic(GameObjectFactory gameObjectFactory) {
@@ -28,8 +28,8 @@ public class GameLogic {
 
         player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER);
         field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD);
-        enemies = new Enemy[enemyLimit];
-        projectiles = new Projectile[projectileLimit];
+        enemies = new Enemy[ENEMY_LIMIT];
+        projectiles = new Projectile[PROJECTILE_LIMIT];
 
 
         while (true) {
@@ -42,7 +42,7 @@ public class GameLogic {
             // TODO: Lower player movement/firing buffer cooldowns until 0;
             player.decreaseFireBuffer();
 
-            // TODO: Create enemy array. Run through all the enemies and order next move command.
+            // TODO: Create enemy array. Run through all the enemies and order next move/fire command.
 
             /*
             for (Enemy e : enemies) {
@@ -52,12 +52,12 @@ public class GameLogic {
             */
 
             // TODO: Create projectile array. Run through all projectile and order next move command.
-
+            // Projectile move logic should be inherited from the creator of the object (Player v. Enemy)
 
             for (Projectile p : projectiles) {
 
                 if (!checkFieldLimits(p)) {
-                    if (p.friendly()) {
+                    if (p.isFriendly()) {
                         p.projectileMove(MoveDirection.RIGHT);
                     } else {
                         p.projectileMove(MoveDirection.LEFT);
@@ -71,6 +71,8 @@ public class GameLogic {
 
     }
 
+
+    // TODO: this should be checked by the collision detector
     public boolean checkFieldLimits(Projectile p) {
 
         int fieldHeight = 420; //TODO: alterar estes magic numbers, isto é só para testes

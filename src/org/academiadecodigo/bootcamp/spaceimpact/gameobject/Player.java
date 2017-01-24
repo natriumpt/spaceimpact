@@ -4,12 +4,14 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 
 public class Player extends Ship {
 
+    private ProjectileFactory projectileFactory;
     private int lives;
     private int fireBuffer;
 
-    public Player(Representable representation) {
+    public Player(Representable representation, ProjectileFactory projectileFactory) {
         super(representation);
-        setSpeed(200);
+        this.projectileFactory = projectileFactory;
+        setSpeed(200); // TODO: change this to a more reasonable value
     }
 
     @Override
@@ -21,7 +23,7 @@ public class Player extends Ship {
     }
 
     public void decreaseFireBuffer() {
-        if (fireBuffer > 0)  fireBuffer--;
+        if (fireBuffer > 0) fireBuffer--;
     }
 
     public void playerMove(MoveDirection moveDirection) {
@@ -43,6 +45,6 @@ public class Player extends Ship {
 
     @Override
     public String toString() {
-        return getX() + " " +getY();
+        return getX() + " " + getY();
     }
 }

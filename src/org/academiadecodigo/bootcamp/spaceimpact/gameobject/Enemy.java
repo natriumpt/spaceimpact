@@ -4,12 +4,16 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 
 public class Enemy extends Ship {
 
-    public Enemy(Representable representation) {
+    ProjectileFactory projectileFactory;
+
+    public Enemy(Representable representation, ProjectileFactory projectileFactory) {
         super(representation);
-        setSpeed(1);
+        this.projectileFactory = projectileFactory;
+        setSpeed(1); // TODO: Change this to reasonable values
     }
 
     public void enemyMove(int x, int y) {
+        // TODO: Change this to ensure more realistic diagonal movement
         if (getX() != x || getY() != y) {
             if (getX() > x) {
                 move(-getSpeed(), 0);
@@ -27,11 +31,8 @@ public class Enemy extends Ship {
     }
 
     public void pattern() {
-        //enemyMove(20,30);
-        fire();
-        //enemyMove(80,20);
-        fire();
-
+        // TODO: Implement a pattern for the enemy
+        throw new UnsupportedOperationException();
     }
 
 }

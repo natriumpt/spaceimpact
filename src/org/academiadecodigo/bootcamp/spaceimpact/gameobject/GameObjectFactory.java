@@ -17,14 +17,25 @@ public class GameObjectFactory {
         GameObject gameObject = null;
 
         switch (type) {
-            case PLAYER:
-                gameObject = new Player((MovableRepresentable) representableFactory.createRepresentation(type));
-                break;
-            case ENEMY:
-                gameObject = new Enemy((MovableRepresentable) representableFactory.createRepresentation(type));
-                break;
             case FIELD:
                 gameObject = new Field((Representable) representableFactory.createRepresentation(type));
+                break;
+        }
+
+        return gameObject;
+
+    }
+
+    public GameObject createObject(GameObjectType type, ProjectileFactory projectileFactory) {
+
+        GameObject gameObject = null;
+
+        switch (type) {
+            case PLAYER:
+                gameObject = new Player((MovableRepresentable) representableFactory.createRepresentation(type), projectileFactory);
+                break;
+            case ENEMY:
+                gameObject = new Enemy((MovableRepresentable) representableFactory.createRepresentation(type), projectileFactory);
                 break;
         }
 
