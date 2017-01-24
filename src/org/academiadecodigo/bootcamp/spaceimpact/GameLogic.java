@@ -56,11 +56,17 @@ public class GameLogic {
 
             // TODO: Create projectile array. Run through all projectile and order next move command.
 
-            /*
+
             for (Projectile p : projectiles) {
-                p.moveToTarget;
+
+                if (!checkFieldLimits(p)) {
+                    if (p.friendly()) {
+                        p.projectileMove(MoveDirection.RIGHT);
+                    } else {
+                        p.projectileMove(MoveDirection.LEFT);
+                    }
+                }
             }
-            */
 
 
             Thread.sleep(33); // Pauses the thread every 1/30th of a second
@@ -71,6 +77,21 @@ public class GameLogic {
     public void addProjectile(Projectile projectile) {
         projectiles[projectileCounter] = projectile;
         projectileCounter++;
+    }
+
+    public boolean checkFieldLimits(Projectile p){
+
+        int fieldHeight = 420; //todo alterar estes magic numbers, isto é só para testes
+        int fieldWidth = 800;
+        boolean projectileOutOfBounds = false;
+
+        if (p.getX() <0 || p.getX() > fieldWidth || p.getY()>fieldHeight || p.getY()<0){
+            System.out.println("Projectile out of bounds"); //do something instead of sout
+            projectileOutOfBounds = true;
+        }
+
+        return projectileOutOfBounds;
+
     }
 
 }

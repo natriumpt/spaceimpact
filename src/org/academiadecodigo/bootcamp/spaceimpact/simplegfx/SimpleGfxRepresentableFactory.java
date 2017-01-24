@@ -17,6 +17,8 @@ public class SimpleGfxRepresentableFactory implements RepresentableFactory {
                 break;
             case FIELD:
                 break;
+            case PROJECTILE:
+                break;
         }
 
         return representation;
