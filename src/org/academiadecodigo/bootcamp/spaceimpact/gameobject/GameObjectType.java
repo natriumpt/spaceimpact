@@ -4,5 +4,5 @@ public enum GameObjectType {
     PLAYER,
     ENEMY,
     FIELD,
-    PROJECTILE
+    PROJECTILE;
 }

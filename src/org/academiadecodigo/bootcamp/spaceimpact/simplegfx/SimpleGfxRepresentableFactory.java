@@ -12,7 +12,7 @@ public class SimpleGfxRepresentableFactory implements RepresentableFactory {
 
         switch (type) {
             case PLAYER:
-                representation = new SimpleGfxPlayer(x,y);
+                representation = new SimpleGfxPlayer(x, y);
                 break;
             case ENEMY:
                 representation = new SimpleGfxEnemy();
@@ -21,15 +21,11 @@ public class SimpleGfxRepresentableFactory implements RepresentableFactory {
                 representation = new SimpleGfxField();
                 break;
             case PROJECTILE:
-                representation = new SimpleGfxProjectile()
+                break;
         }
 
         return representation;
     }
-
-
-    @Override
-    public Representable createRepresentation(GameObjectType type) {
-        return null;
-    }
 }
+
+
