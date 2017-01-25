@@ -8,8 +8,4 @@ public class SimpleGfxPlayer extends SimpleGfxMovableRepresentable {
         super(new Picture(x, y, "playership.png"));
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }

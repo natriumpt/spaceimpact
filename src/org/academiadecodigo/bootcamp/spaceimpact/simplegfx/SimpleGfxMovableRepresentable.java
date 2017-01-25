@@ -17,4 +17,9 @@ public abstract class SimpleGfxMovableRepresentable extends SimpleGfxRepresentab
         }
     }
 
+    @Override
+    public void destroy() {
+
+    }
+
 }

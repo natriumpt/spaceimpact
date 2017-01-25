@@ -3,7 +3,6 @@ package org.academiadecodigo.bootcamp.spaceimpact;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Enemy;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Player;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Projectile;
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Ship;
 
 /**
  * Created by codecadet on 1/25/17.
@@ -27,15 +26,15 @@ public class CollisionDetector {
 
         for (Enemy enemy : enemies) {
             if (player.getX() == enemy.getX() && player.getY() == enemy.getY()) {
-                player.destroy;
-                enemy.destroy;
+                player.destroy();
+                enemy.destroy();
             }
         }
 
         for (Projectile projectile : projectiles) {
             if (!projectile.isFriendly() && projectile.getX() == player.getX() && projectile.getY() == player.getY()) {
-                player.destroy;
-                projectile.destroy;
+                player.destroy();
+                projectile.destroy();
             }
         }
 
@@ -44,8 +43,8 @@ public class CollisionDetector {
             for (Enemy enemy : enemies) {
 
                 if (projectile.isFriendly() && projectile.getX() == enemy.getX() && projectile.getY() == enemy.getY()) {
-                    enemy.destroy;
-                    projectile.destroy;
+                    enemy.destroy();
+                    projectile.destroy();
 
                 }
 

@@ -44,6 +44,11 @@ public class Player extends Ship {
         }
     }
 
+    @Override
+    public void destroy() {
+        super.destroy();
+    }
+
     public void decreaseFireBuffer() {
         if (fireBuffer > 0) fireBuffer--;
     }

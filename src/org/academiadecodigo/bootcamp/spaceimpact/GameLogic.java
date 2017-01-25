@@ -20,7 +20,6 @@ public class GameLogic {
     private CollisionDetector collisionDetector;
 
 
-
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
         this.gameObjectFactory = gameObjectFactory;
         this.projectileFactory = projectileFactory;
@@ -33,8 +32,8 @@ public class GameLogic {
 
         /* The below declarations are not final
             Missing initialization properties for player && field */
-        field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD,0,0);
-        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getH()/2, field.getW()/4, projectileFactory);
+        field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD, 0, 0);
+        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getH() / 2, field.getW() / 4, projectileFactory);
         enemies = new Enemy[ENEMY_LIMIT];
         projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
@@ -66,20 +65,15 @@ public class GameLogic {
             // TODO: Create projectile array. Run through all projectile and order next move command.
             // Projectile move logic should be inherited from the creator of the object (Player v. Enemy)
 
-//            for (Projectile p : projectiles) {
-//
-//                if (!checkFieldLimits(p)) {
-//                    if (p.isFriendly()) {
-//                        p.projectileMove(MoveDirection.RIGHT);
-//                    } else {
-//                        p.projectileMove(MoveDirection.LEFT);
-//                    }
-//                }
-//            }
+            for (Projectile p : projectiles) {
+                if (p != null) {
+                    p.projectileMove();
+                }
+            }
 
             // TODO: Collision detection
 
-            collisionDetector.checkCollisions(player,enemies,projectiles);
+            // collisionDetector.checkCollisions(player,enemies,projectiles);
 
             Thread.sleep(33); // Pauses the thread every 1/30th of a second
         }

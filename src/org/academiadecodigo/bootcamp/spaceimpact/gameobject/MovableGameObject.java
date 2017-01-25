@@ -25,4 +25,8 @@ public abstract class MovableGameObject extends GameObject {
         setY(getY() + dy);
     }
 
+    public void destroy() {
+        ((MovableRepresentable) getRepresentation()).destroy();
+    }
+
 }
