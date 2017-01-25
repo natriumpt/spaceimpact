@@ -23,12 +23,13 @@ public class SimpleGfxField extends SimpleGfxRepresentable {
     public void stateMachinePictureChanging() {
         Picture picture;
 
-        if (pictureStateMachine == 30)
+        if (pictureStateMachine > 30)
             pictureStateMachine = 1;
         picture = pictureArray[pictureStateMachine];
         picture.draw();
         pictureStateMachine++;
     }
+
 
 
 
