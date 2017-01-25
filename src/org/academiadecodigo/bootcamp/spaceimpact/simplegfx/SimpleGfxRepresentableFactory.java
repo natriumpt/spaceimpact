@@ -6,22 +6,24 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 
 public class SimpleGfxRepresentableFactory implements RepresentableFactory {
 
-    public Representable createRepresentation(GameObjectType type) {
+    private static final int PADDING = 10;
+
+    public Representable createRepresentation(GameObjectType type, int x, int y) {
 
         Representable representation = null;
 
         switch (type) {
             case PLAYER:
-                representation = new SimpleGfxPlayer(20, 20);
+                representation = new SimpleGfxPlayer(x, y);
                 break;
             case ENEMY:
-                representation = new SimpleGfxEnemy(100, 100);
+                representation = new SimpleGfxEnemy(x, y);
                 break;
             case FIELD:
-                representation = new SimpleGfxField(10, 10);
+                representation = new SimpleGfxField(PADDING, PADDING);
                 break;
             case PROJECTILE:
-                representation = new SimpleGfxProjectile(20, 20);
+                representation = new SimpleGfxProjectile(x, y);
                 break;
         }
 

@@ -6,8 +6,10 @@ public class Projectile extends MovableGameObject {
 
     private boolean friendly;
 
-    public Projectile(Representable representation, boolean friendly, int speed) {
+    public Projectile(Representable representation, int x, int y, boolean friendly, int speed) {
         super(representation);
+        setX(x);
+        setY(y);
         this.friendly = friendly;
         setSpeed(speed);
     }

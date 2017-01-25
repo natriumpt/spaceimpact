@@ -1,6 +1,10 @@
 package org.academiadecodigo.bootcamp.spaceimpact;
 
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Controllable;
+import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxKeyboard;
+import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxRepresentableFactory;
+
 
 public class GameLogic {
 
@@ -8,6 +12,7 @@ public class GameLogic {
     private static final int ENEMY_LIMIT = 25;
     private GameObjectFactory gameObjectFactory;
     private ProjectileFactory projectileFactory;
+    private Controllable controllable;
     private Player player;
     private Enemy[] enemies;
     private Projectile[] projectiles;
@@ -26,11 +31,15 @@ public class GameLogic {
 
         /* The below declarations are not final
             Missing initialization properties for player && field */
-        field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD);
-        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, projectileFactory);
+        field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD,0,0);
+        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getH()/2, field.getW()/4, projectileFactory);
         enemies = new Enemy[ENEMY_LIMIT];
         projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
+
+        if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
+            this.controllable = new SimpleGfxKeyboard(this.player);
+        }
 
         while (true) {
 
@@ -54,16 +63,16 @@ public class GameLogic {
             // TODO: Create projectile array. Run through all projectile and order next move command.
             // Projectile move logic should be inherited from the creator of the object (Player v. Enemy)
 
-            for (Projectile p : projectiles) {
-
-                if (!checkFieldLimits(p)) {
-                    if (p.isFriendly()) {
-                        p.projectileMove(MoveDirection.RIGHT);
-                    } else {
-                        p.projectileMove(MoveDirection.LEFT);
-                    }
-                }
-            }
+//            for (Projectile p : projectiles) {
+//
+//                if (!checkFieldLimits(p)) {
+//                    if (p.isFriendly()) {
+//                        p.projectileMove(MoveDirection.RIGHT);
+//                    } else {
+//                        p.projectileMove(MoveDirection.LEFT);
+//                    }
+//                }
+//            }
 
             // TODO: Collision detection
 
@@ -72,20 +81,21 @@ public class GameLogic {
 
     }
 
-    // TODO: this should be checked by the collision detector
-    public boolean checkFieldLimits(Projectile p) {
-
-        int fieldHeight = 420; //TODO: alterar estes magic numbers, isto é só para testes
-        int fieldWidth = 800;
-        boolean projectileOutOfBounds = false;
-
-        if (p.getX() < 0 || p.getX() > fieldWidth || p.getY() > fieldHeight || p.getY() < 0) {
-            System.out.println("Projectile out of bounds"); //do something instead of sout
-            projectileOutOfBounds = true;
-        }
-
-        return projectileOutOfBounds;
-
-    }
+//    // TODO: this should be checked by the collision detector
+//    public boolean checkFieldLimits(Projectile p) {
+//
+//        int fieldHeight = 420; //TODO: alterar estes magic numbers, isto é só para testes
+//        int fieldWidth = 800;
+//        boolean projectileOutOfBounds = false;
+//
+//
+//        if (p.getX() < 0 || p.getX() > fieldWidth || p.getY() > fieldHeight || p.getY() < 0) {
+//            System.out.println("Projectile out of bounds"); //do something instead of sout
+//            projectileOutOfBounds = true;
+//        }
+//
+//        return projectileOutOfBounds;
+//
+//    }
 
 }

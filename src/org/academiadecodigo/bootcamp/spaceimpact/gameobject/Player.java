@@ -7,8 +7,8 @@ public class Player extends Ship {
     private ProjectileFactory projectileFactory;
     private int lives;
 
-    public Player(Representable representation, ProjectileFactory projectileFactory) {
-        super(representation);
+    public Player(Representable representation, int x, int y, ProjectileFactory projectileFactory) {
+        super(representation, x, y);
         this.projectileFactory = projectileFactory;
         // TODO: Implement hit points
         setLives(3);
@@ -39,7 +39,7 @@ public class Player extends Ship {
     @Override
     public void fire() {
         if (super.fireBuffer == 0) {
-            projectileFactory.createProjectile(GameObjectType.PROJECTILE, true, 100);
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX(), getY(), true, 100);
             super.fireBuffer = 10;
         }
     }
