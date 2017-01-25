@@ -12,6 +12,8 @@ public class GameLogic {
     private Enemy[] enemies;
     private Projectile[] projectiles;
     private Field field;
+    private CollisionDetector collisionDetector;
+
 
 
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
@@ -31,6 +33,7 @@ public class GameLogic {
         enemies = new Enemy[ENEMY_LIMIT];
         projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
+        collisionDetector = new CollisionDetector(player, enemies, projectiles);
 
         while (true) {
 
@@ -66,6 +69,8 @@ public class GameLogic {
             }
 
             // TODO: Collision detection
+
+            collisionDetector.checkCollisions(player,enemies,projectiles);
 
             Thread.sleep(33); // Pauses the thread every 1/30th of a second
         }
