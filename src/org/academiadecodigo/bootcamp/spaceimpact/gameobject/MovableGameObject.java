@@ -29,4 +29,8 @@ public abstract class MovableGameObject extends GameObject {
         ((MovableRepresentable) getRepresentation()).destroy();
     }
 
+    public boolean outOfBounds(Field field) {
+        return (field.getW() < this.getX() + this.getW() || field.getH() < this.getY() + this.getH());
+    }
+
 }

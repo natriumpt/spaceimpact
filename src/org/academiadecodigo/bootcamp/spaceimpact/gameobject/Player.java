@@ -5,14 +5,15 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 public class Player extends Ship {
 
     private ProjectileFactory projectileFactory;
+    private int fireBuffer;
     private int lives;
 
     public Player(Representable representation, int x, int y, ProjectileFactory projectileFactory) {
         super(representation, x, y);
         this.projectileFactory = projectileFactory;
-        // TODO: Implement hit points
+        setHitPoints(3);
         setLives(3);
-        setSpeed(200); // TODO: change this to a more reasonable value
+        setSpeed(16); // TODO: change this to a more reasonable value
     }
 
     public void increaseLives() {
@@ -31,16 +32,15 @@ public class Player extends Ship {
         this.lives = lives;
     }
 
-    @Override
-    public void hit() {
-        lives--;
+    public void decreaseFireBuffer() {
+        if (fireBuffer > 0) fireBuffer--;
     }
 
     @Override
     public void fire() {
-        if (super.fireBuffer == 0) {
-            projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX(), getY(), true, 100);
-            super.fireBuffer = 10;
+        if (fireBuffer == 0) {
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX() + getW(), getY() + getH() / 2, 16,4, true, 1, 100);
+            fireBuffer = 3;
         }
     }
 
@@ -49,29 +49,8 @@ public class Player extends Ship {
         super.destroy();
     }
 
-    public void decreaseFireBuffer() {
-        if (fireBuffer > 0) fireBuffer--;
-    }
-
-//    public void playerMove(MoveDirection moveDirection) {
-//        switch (moveDirection) {
-//            case UP:
-//                move(0, -getSpeed());
-//                break;
-//            case DOWN:
-//                move(0, getSpeed());
-//                break;
-//            case LEFT:
-//                move(-getSpeed(), 0);
-//                break;
-//            case RIGHT:
-//                move(getSpeed(), 0);
-//                break;
-//        }
-//    }
-
     @Override
     public String toString() {
-        return getX() + " " + getY();
+        return "Player Position: " + this.getX() + ":" + this.getY();
     }
 }

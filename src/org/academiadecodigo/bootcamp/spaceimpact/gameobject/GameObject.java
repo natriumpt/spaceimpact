@@ -7,6 +7,8 @@ public abstract class GameObject {
     private Representable representation;
     private int x;
     private int y;
+    private int w;
+    private int h;
 
     public GameObject(Representable representation) {
         this.representation = representation;
@@ -32,5 +34,28 @@ public abstract class GameObject {
         this.y = y;
     }
 
+    public int getW() {
+        return w;
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    public int getH() {
+        return h;
+    }
+
+    public void setH(int h) {
+        this.h = h;
+    }
+
+    public boolean comparePos(GameObject gameObject1, GameObject gameObject2) {
+        return (
+                gameObject1.getX() < gameObject2.getX() + gameObject2.getW() &&
+                gameObject1.getX() + gameObject1.getW() > gameObject2.getX() &&
+                gameObject1.getY() < gameObject2.getY() + gameObject2.getH() &&
+                gameObject1.getY() + gameObject1.getH() > gameObject2.getY());
+    }
 
 }

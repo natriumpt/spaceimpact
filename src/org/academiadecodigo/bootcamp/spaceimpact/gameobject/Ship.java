@@ -4,7 +4,7 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 
 public abstract class Ship extends MovableGameObject {
 
-    int fireBuffer;
+    private int hitPoints;
 
     public Ship(Representable representation, int x, int y) {
         super(representation);
@@ -12,8 +12,22 @@ public abstract class Ship extends MovableGameObject {
         this.setY(y);
     }
 
-    public abstract void fire();
+    public int getHitPoints() {
+        return hitPoints;
+    }
 
-    public abstract void hit();
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
+    }
+
+    public void hit(int damage) {
+        hitPoints -= damage;
+    }
+
+    public boolean isDestroyed() {
+        return hitPoints <= 0;
+    }
+
+    public abstract void fire();
 
 }

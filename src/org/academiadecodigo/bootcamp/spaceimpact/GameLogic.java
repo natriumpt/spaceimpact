@@ -5,7 +5,6 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Contro
 import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxKeyboard;
 import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxRepresentableFactory;
 
-
 public class GameLogic {
 
     private static final int PROJECTILE_LIMIT = 100;
@@ -33,7 +32,7 @@ public class GameLogic {
         /* The below declarations are not final
             Missing initialization properties for player && field */
         field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD, 0, 0);
-        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getH() / 2, field.getW() / 4, projectileFactory);
+        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getW() / 4, field.getH() / 2, projectileFactory);
         enemies = new Enemy[ENEMY_LIMIT];
         projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
@@ -52,6 +51,7 @@ public class GameLogic {
 
             // TODO: Lower player movement/firing buffer cooldowns until 0;
             player.decreaseFireBuffer();
+            controllable.controlCycle();
 
             // TODO: Create enemy array. Run through all the enemies and order next move/fire command.
 
@@ -74,6 +74,13 @@ public class GameLogic {
             // TODO: Collision detection
 
             // collisionDetector.checkCollisions(player,enemies,projectiles);
+            for (Projectile p : projectiles) {
+                if (p != null) {
+                    if (p.outOfBounds(field)) {
+                        p.destroy();
+                    }
+                }
+            }
 
             Thread.sleep(33); // Pauses the thread every 1/30th of a second
         }

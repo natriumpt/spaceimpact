@@ -11,6 +11,11 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
 
     private Keyboard k;
     private Player player;
+    private boolean up;
+    private boolean down;
+    private boolean left;
+    private boolean right;
+    private boolean firing;
 
     public SimpleGfxKeyboard(Player player) {
         this.player = player;
@@ -41,49 +46,104 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
         pressRight.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         k.addEventListener(pressRight);
 
-        KeyboardEvent fire = new KeyboardEvent();
-        fire.setKey(KeyboardEvent.KEY_SPACE);
-        fire.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        k.addEventListener(fire);
+        KeyboardEvent pressFire = new KeyboardEvent();
+        pressFire.setKey(KeyboardEvent.KEY_SPACE);
+        pressFire.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        k.addEventListener(pressFire);
 
+        KeyboardEvent releaseUp = new KeyboardEvent();
+        releaseUp.setKey(KeyboardEvent.KEY_W);
+        releaseUp.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        k.addEventListener(releaseUp);
+
+        KeyboardEvent releaseDown = new KeyboardEvent();
+        releaseDown.setKey(KeyboardEvent.KEY_S);
+        releaseDown.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        k.addEventListener(releaseDown);
+
+        KeyboardEvent releaseLeft = new KeyboardEvent();
+        releaseLeft.setKey(KeyboardEvent.KEY_A);
+        releaseLeft.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        k.addEventListener(releaseLeft);
+
+        KeyboardEvent releaseRight = new KeyboardEvent();
+        releaseRight.setKey(KeyboardEvent.KEY_D);
+        releaseRight.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        k.addEventListener(releaseRight);
+
+        KeyboardEvent releaseFire = new KeyboardEvent();
+        releaseFire.setKey(KeyboardEvent.KEY_SPACE);
+        releaseFire.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        k.addEventListener(releaseFire);
+
+    }
+
+    public void controlCycle() {
+        if (up) player.move(0,-player.getSpeed());
+        if (down) player.move(0,player.getSpeed());
+        if (left) player.move(-player.getSpeed(),0);
+        if (right) player.move(player.getSpeed(),0);
+        if (firing) player.fire();
     }
 
     @Override
     public void keyPressed(KeyboardEvent e) {
         switch (e.getKey()) {
             case KeyboardEvent.KEY_W:
-                player.move(0, -10);
-                System.out.println(player.getX());
-                System.out.println(player.getY());
+                up = true;
                 System.out.println("Pressed W");
                 break;
 
             case KeyboardEvent.KEY_S:
-                player.move(0, 10);
+                down = true;
                 System.out.println("Pressed S");
                 break;
 
             case KeyboardEvent.KEY_A:
-                player.move(-10, 0);
+                left = true;
                 System.out.println("Pressed A");
                 break;
 
             case KeyboardEvent.KEY_D:
-                player.move(10, 0);
+                right = true;
                 System.out.println("Pressed D");
                 break;
 
             case KeyboardEvent.KEY_SPACE:
-                player.fire();
+                firing = true;
                 System.out.println("Pressed Space");
                 break;
-
-
         }
     }
 
     @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) {
+    public void keyReleased(KeyboardEvent e) {
+        switch (e.getKey()){
+            case KeyboardEvent.KEY_W:
+                up = false;
+                System.out.println("Released W");
+                break;
+
+            case KeyboardEvent.KEY_S:
+                down = false;
+                System.out.println("Released S");
+                break;
+
+            case KeyboardEvent.KEY_A:
+                left = false;
+                System.out.println("Released A");
+                break;
+
+            case KeyboardEvent.KEY_D:
+                right = false;
+                System.out.println("Released D");
+                break;
+
+            case KeyboardEvent.KEY_SPACE:
+                firing = false;
+                System.out.println("Released Space");
+                break;
+        }
 
     }
 
