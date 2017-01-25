@@ -10,35 +10,36 @@ public class Player extends Ship {
     public Player(Representable representation, ProjectileFactory projectileFactory) {
         super(representation);
         this.projectileFactory = projectileFactory;
+        // TODO: Implement hit points
         setLives(3);
         setSpeed(200); // TODO: change this to a more reasonable value
     }
 
-    public void setLives(int lives){
-        this.lives = lives;
-    }
-
-    public void increaseLives(){
+    public void increaseLives() {
         lives++;
     }
 
-    public void decreaseLives(){
-         lives--;
+    public void decreaseLives() {
+        lives--;
     }
 
-    public int getLives(){
+    public int getLives() {
         return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     @Override
     public void hit() {
-            lives--;
+        lives--;
     }
 
     @Override
     public void fire() {
         if (super.fireBuffer == 0) {
-            projectileFactory.createProjectile(GameObjectType.PROJECTILE,true,100);
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE, true, 100);
             super.fireBuffer = 10;
         }
     }

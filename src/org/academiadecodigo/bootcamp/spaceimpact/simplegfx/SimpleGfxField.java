@@ -7,14 +7,9 @@ public class SimpleGfxField extends SimpleGfxRepresentable {
     //TODO implement pictureArray to simulate animation of background
 
     public SimpleGfxField(int x, int y) {
-        super(new Picture(x,y,"background01.png"));
+        super(new Picture(x, y, "background01.png"));
 
     }
-
-
-
-
-
 
 
 }

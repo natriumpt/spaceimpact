@@ -11,7 +11,7 @@ public class SimpleGfxPlayer extends SimpleGfxMovableRepresentable implements Ke
     Keyboard k;
 
     public SimpleGfxPlayer(int x, int y) {
-        super(new Picture(x,y,"playership.png"));
+        super(new Picture(x, y, "playership.png"));
         initializeKeyboard();
     }
 
@@ -44,24 +44,23 @@ public class SimpleGfxPlayer extends SimpleGfxMovableRepresentable implements Ke
     public void keyPressed(KeyboardEvent e) {
         switch (e.getKey()) {
             case KeyboardEvent.KEY_W:
-                this.move(0,-10);
+                this.move(0, -10);
                 System.out.println(this.getX());
                 System.out.println(this.getY());
                 System.out.println("Pressed W");
                 break;
             case KeyboardEvent.KEY_S:
-                this.move(0,10);
+                this.move(0, 10);
                 System.out.println("Pressed S");
                 break;
             case KeyboardEvent.KEY_A:
-                this.move(-10,0);
+                this.move(-10, 0);
                 System.out.println("Pressed A");
                 break;
             case KeyboardEvent.KEY_D:
-                this.move(10,0);
+                this.move(10, 0);
                 System.out.println("Pressed D");
                 break;
-
 
 
         }

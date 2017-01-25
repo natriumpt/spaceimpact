@@ -1,6 +1,5 @@
 package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
 
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.MovableRepresentable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 
 public abstract class MovableGameObject extends GameObject {

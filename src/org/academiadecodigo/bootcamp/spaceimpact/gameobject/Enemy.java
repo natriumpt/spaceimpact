@@ -43,14 +43,14 @@ public class Enemy extends Ship {
     @Override
     public void fire() {
         if (super.fireBuffer == 0) {
-            projectileFactory.createProjectile(GameObjectType.PROJECTILE,false,100);
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE, false, 100);
             super.fireBuffer = 10;
         }
     }
 
     @Override
     public void hit() {
-            hitPoints --;
+        hitPoints--;
     }
 
     public void pattern() {

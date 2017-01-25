@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.spaceimpact;
 
-import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.GameObjectFactory;
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.ProjectileFactory;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.RepresentableFactory;
 import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxRepresentableFactory;
 

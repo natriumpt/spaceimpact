@@ -5,12 +5,12 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class SimpleGfxEnemy extends SimpleGfxMovableRepresentable {
 
 
-    public SimpleGfxEnemy(int x,int y) {
-        super(new Picture(x,y,""));
+    public SimpleGfxEnemy(int x, int y) {
+        super(new Picture(x, y, ""));
     }
 
-    public void move(int x, int y){
-        super.move(x,y);
+    public void move(int x, int y) {
+        super.move(x, y);
     }
 
 }
