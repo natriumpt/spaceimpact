@@ -18,11 +18,11 @@ public class Projectile extends MovableGameObject {
         return friendly;
     }
 
-    public void projectileMove(MoveDirection moveDirection) {
+    public void projectileMove() {
         if (friendly) {
-            move(getSpeed(), 0);
+            super.move(getSpeed(),0);
         } else {
-            move(-getSpeed(), 0);
+            super.move(-getSpeed(),0);
         }
     }
 

@@ -48,22 +48,22 @@ public class Player extends Ship {
         if (fireBuffer > 0) fireBuffer--;
     }
 
-    public void playerMove(MoveDirection moveDirection) {
-        switch (moveDirection) {
-            case UP:
-                move(0, -getSpeed());
-                break;
-            case DOWN:
-                move(0, getSpeed());
-                break;
-            case LEFT:
-                move(-getSpeed(), 0);
-                break;
-            case RIGHT:
-                move(getSpeed(), 0);
-                break;
-        }
-    }
+//    public void playerMove(MoveDirection moveDirection) {
+//        switch (moveDirection) {
+//            case UP:
+//                move(0, -getSpeed());
+//                break;
+//            case DOWN:
+//                move(0, getSpeed());
+//                break;
+//            case LEFT:
+//                move(-getSpeed(), 0);
+//                break;
+//            case RIGHT:
+//                move(getSpeed(), 0);
+//                break;
+//        }
+//    }
 
     @Override
     public String toString() {

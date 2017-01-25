@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
 
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.MovableRepresentable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 
 public abstract class MovableGameObject extends GameObject {
@@ -19,7 +20,7 @@ public abstract class MovableGameObject extends GameObject {
     }
 
     public void move(int dx, int dy) {
-        //((MovableRepresentable) getRepresentation()).move(dx, dy);
+        ((MovableRepresentable) getRepresentation()).move(dx, dy);
         setX(getX() + dx);
         setY(getY() + dy);
     }
