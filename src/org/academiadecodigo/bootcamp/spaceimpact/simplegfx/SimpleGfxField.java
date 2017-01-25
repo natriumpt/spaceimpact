@@ -20,14 +20,22 @@ public class SimpleGfxField extends SimpleGfxRepresentable {
         }
     }
 
+    public void deletingPicture(){
+        Picture picture;
+        picture = pictureArray[pictureStateMachine];
+        picture.delete();
+    }
+
     public void stateMachinePictureChanging() {
         Picture picture;
 
         if (pictureStateMachine > 30)
             pictureStateMachine = 1;
+
+        deletingPicture();
+        pictureStateMachine++;
         picture = pictureArray[pictureStateMachine];
         picture.draw();
-        pictureStateMachine++;
     }
 
 
