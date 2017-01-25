@@ -19,13 +19,12 @@ public class Player extends Ship {
     }
 
     public void decreaseLives(){
-        if (lives>0) {
-            lives--;
-        } else {
-            System.out.println("GAME OVER");
-        }
+         lives--;
     }
 
+    public int getLives(){
+        return lives;
+    }
 
     @Override
     public void hit() {
