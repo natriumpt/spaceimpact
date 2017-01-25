@@ -4,18 +4,14 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 
 public abstract class Ship extends MovableGameObject {
 
-    private int hitPoints;
+    int fireBuffer;
 
     public Ship(Representable representation) {
         super(representation);
     }
 
-    public void fire() {
+    public abstract void fire();
 
-    }
-
-    public void hit() {
-
-    }
+    public abstract void hit();
 
 }

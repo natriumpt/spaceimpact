@@ -5,8 +5,8 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 public class Player extends Ship {
 
     private ProjectileFactory projectileFactory;
-    private int lives;
-    private int fireBuffer;
+    private int lives = 3;
+
 
     public Player(Representable representation, ProjectileFactory projectileFactory) {
         super(representation);
@@ -14,11 +14,18 @@ public class Player extends Ship {
         setSpeed(200); // TODO: change this to a more reasonable value
     }
 
+
+    @Override
+    public void hit() {
+        if (lives > 0)
+            lives--;
+    }
+
     @Override
     public void fire() {
-        if (fireBuffer == 0) {
+        if (super.fireBuffer == 0) {
             projectileFactory.createProjectile(GameObjectType.PROJECTILE,true,100);
-            fireBuffer = 10;
+            super.fireBuffer = 10;
         }
     }
 

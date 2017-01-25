@@ -5,6 +5,7 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 public class Enemy extends Ship {
 
     ProjectileFactory projectileFactory;
+    int hitPoints = 10;
 
     public Enemy(Representable representation, ProjectileFactory projectileFactory) {
         super(representation);
@@ -28,6 +29,20 @@ public class Enemy extends Ship {
                 move(0, getSpeed());
             }
         }
+    }
+
+    @Override
+    public void fire() {
+        if (super.fireBuffer == 0) {
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE,false,100);
+            super.fireBuffer = 10;
+        }
+    }
+
+    @Override
+    public void hit() {
+        if (hitPoints > 0)
+            hitPoints --;
     }
 
     public void pattern() {
