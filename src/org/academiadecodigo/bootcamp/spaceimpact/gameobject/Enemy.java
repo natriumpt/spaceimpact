@@ -5,12 +5,21 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 public class Enemy extends Ship {
 
     ProjectileFactory projectileFactory;
-    int hitPoints = 10;
+    private int hitPoints;
 
-    public Enemy(Representable representation, ProjectileFactory projectileFactory) {
-        super(representation);
+    public Enemy(Representable representation, int x, int y, ProjectileFactory projectileFactory) {
+        super(representation, x, y);
         this.projectileFactory = projectileFactory;
+        setHitPoints(3);
         setSpeed(1); // TODO: Change this to reasonable values
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    private void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
     }
 
     public void enemyMove(int x, int y) {
@@ -34,15 +43,14 @@ public class Enemy extends Ship {
     @Override
     public void fire() {
         if (super.fireBuffer == 0) {
-            projectileFactory.createProjectile(GameObjectType.PROJECTILE,false,100);
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX(), getY(),false, 100);
             super.fireBuffer = 10;
         }
     }
 
     @Override
     public void hit() {
-        if (hitPoints > 0)
-            hitPoints --;
+        hitPoints--;
     }
 
     public void pattern() {

@@ -7,13 +7,13 @@ public abstract class SimpleGfxRepresentable implements Representable {
 
     private Picture picture;
 
-    public Picture getPicture() {
-        return picture;
-    }
-
-    public SimpleGfxRepresentable(Picture picture){
+    public SimpleGfxRepresentable(Picture picture) {
         this.picture = picture;
         picture.draw();
+    }
+
+    public Picture getPicture() {
+        return picture;
     }
 
     @Override

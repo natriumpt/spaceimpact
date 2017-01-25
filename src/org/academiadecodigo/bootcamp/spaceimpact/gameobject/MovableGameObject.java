@@ -20,7 +20,7 @@ public abstract class MovableGameObject extends GameObject {
     }
 
     public void move(int dx, int dy) {
-        //((MovableRepresentable) getRepresentation()).move(dx, dy);
+        ((MovableRepresentable) getRepresentation()).move(dx, dy);
         setX(getX() + dx);
         setY(getY() + dy);
     }

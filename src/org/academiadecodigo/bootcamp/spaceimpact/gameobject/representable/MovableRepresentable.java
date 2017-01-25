@@ -4,4 +4,6 @@ public interface MovableRepresentable extends Representable {
 
     void move(int dx, int dy);
 
+    void destroy();
+
 }
