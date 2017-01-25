@@ -14,6 +14,18 @@ public class Player extends Ship {
         setSpeed(200); // TODO: change this to a more reasonable value
     }
 
+    public void increaseLives(){
+        lives++;
+    }
+
+    public void decreaseLives(){
+        if (lives>0) {
+            lives--;
+        } else {
+            System.out.println("GAME OVER");
+        }
+    }
+
 
     @Override
     public void hit() {
