@@ -5,13 +5,17 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 public class Player extends Ship {
 
     private ProjectileFactory projectileFactory;
-    private int lives = 3;
-
+    private int lives;
 
     public Player(Representable representation, ProjectileFactory projectileFactory) {
         super(representation);
         this.projectileFactory = projectileFactory;
+        setLives(3);
         setSpeed(200); // TODO: change this to a more reasonable value
+    }
+
+    public void setLives(int lives){
+        this.lives = lives;
     }
 
     public void increaseLives(){
