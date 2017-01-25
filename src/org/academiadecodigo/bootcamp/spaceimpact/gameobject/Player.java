@@ -32,7 +32,6 @@ public class Player extends Ship {
 
     @Override
     public void hit() {
-        if (lives > 0)
             lives--;
     }
 

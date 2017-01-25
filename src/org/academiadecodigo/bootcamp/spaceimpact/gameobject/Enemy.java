@@ -50,7 +50,6 @@ public class Enemy extends Ship {
 
     @Override
     public void hit() {
-        if (hitPoints > 0)
             hitPoints --;
     }
 
