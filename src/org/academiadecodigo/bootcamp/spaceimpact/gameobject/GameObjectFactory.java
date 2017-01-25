@@ -30,16 +30,16 @@ public class GameObjectFactory {
 
     }
 
-    public GameObject createObject(GameObjectType type, int x, int y, ProjectileFactory projectileFactory) {
+    public GameObject createObject(GameObjectType type, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
 
         GameObject gameObject = null;
 
         switch (type) {
             case PLAYER:
-                gameObject = new Player((MovableRepresentable) representableFactory.createRepresentation(type, x, y), x, y, projectileFactory);
+                gameObject = new Player((MovableRepresentable) representableFactory.createRepresentation(type, x, y), x, y, w, h, projectileFactory);
                 break;
             case ENEMY:
-                gameObject = new Enemy((MovableRepresentable) representableFactory.createRepresentation(type, x, y), x, y, projectileFactory);
+                gameObject = new Enemy((MovableRepresentable) representableFactory.createRepresentation(type, x, y), x, y, w, h, projectileFactory);
                 break;
         }
 

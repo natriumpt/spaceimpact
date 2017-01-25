@@ -19,8 +19,8 @@ public class Projectile extends MovableGameObject {
         setSpeed(speed);
     }
 
-    public boolean isDestroyed() {
-        return destroyed;
+    public int getDamage() {
+        return damage;
     }
 
     @Override

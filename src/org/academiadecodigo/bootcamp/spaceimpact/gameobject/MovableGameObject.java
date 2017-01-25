@@ -29,8 +29,31 @@ public abstract class MovableGameObject extends GameObject {
         ((MovableRepresentable) getRepresentation()).destroy();
     }
 
+/*    public boolean outOfBounds(Field field) {
+        if (this.getW() > this.getX()) {
+            this.move(getSpeed(),0);
+            return true;
+        }
+        if (this.getH() > this.getY()) {
+            this.move(0,getSpeed());
+            return true;
+        }
+        if (field.getW() < this.getX() + this.getW()) {
+            this.move(-getSpeed(),-getSpeed());
+            return true;
+        }
+        if (field.getH() < this.getY() + this.getH()) {
+            this.move(-getSpeed(), -getSpeed());
+            return true;
+        }
+        return false;
+    }*/
+
     public boolean outOfBounds(Field field) {
-        return (field.getW() < this.getX() + this.getW() || field.getH() < this.getY() + this.getH());
+        return (this.getW() > this.getX() ||
+                this.getH() > this.getY() ||
+                field.getW() < this.getX() + this.getW() ||
+                field.getH() < this.getY() + this.getH());
     }
 
 }

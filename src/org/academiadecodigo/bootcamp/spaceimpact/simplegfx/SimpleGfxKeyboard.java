@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.spaceimpact.simplegfx;
 
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Field;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Player;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Controllable;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -21,7 +22,6 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
         this.player = player;
         initializeKeyboard();
     }
-
 
     public void initializeKeyboard() {
         k = new Keyboard(this);
@@ -78,6 +78,15 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
 
     }
 
+    public void controlCycle(Field field) {
+        if (up && player.getY() > player.getH() * 2) player.move(0,-player.getSpeed());
+        if (down && player.getY() < field.getH() - player.getH() * 1.5) player.move(0,player.getSpeed());
+        if (left && player.getX() > player.getW()) player.move(-player.getSpeed(),0);
+        if (right && player.getX() < field.getW() - player.getW()) player.move(player.getSpeed(),0);
+        if (firing) player.fire();
+    }
+
+/*
     public void controlCycle() {
         if (up) player.move(0,-player.getSpeed());
         if (down) player.move(0,player.getSpeed());
@@ -85,6 +94,7 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
         if (right) player.move(player.getSpeed(),0);
         if (firing) player.fire();
     }
+*/
 
     @Override
     public void keyPressed(KeyboardEvent e) {

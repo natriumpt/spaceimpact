@@ -16,7 +16,6 @@ public class GameLogic {
     private Enemy[] enemies;
     private Projectile[] projectiles;
     private Field field;
-    private CollisionDetector collisionDetector;
 
 
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
@@ -32,11 +31,10 @@ public class GameLogic {
         /* The below declarations are not final
             Missing initialization properties for player && field */
         field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD, 0, 0);
-        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getW() / 4, field.getH() / 2, projectileFactory);
+        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getW() / 4, field.getH() / 2, 34, 15, projectileFactory);
         enemies = new Enemy[ENEMY_LIMIT];
         projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
-        collisionDetector = new CollisionDetector(player, enemies, projectiles);
 
         if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
             this.controllable = new SimpleGfxKeyboard(this.player);
@@ -51,7 +49,7 @@ public class GameLogic {
 
             // TODO: Lower player movement/firing buffer cooldowns until 0;
             player.decreaseFireBuffer();
-            controllable.controlCycle();
+            controllable.controlCycle(field);
 
             // TODO: Create enemy array. Run through all the enemies and order next move/fire command.
 
@@ -63,21 +61,26 @@ public class GameLogic {
             */
 
             // TODO: Create projectile array. Run through all projectile and order next move command.
-            // Projectile move logic should be inherited from the creator of the object (Player v. Enemy)
-
-            for (Projectile p : projectiles) {
-                if (p != null) {
-                    p.projectileMove();
-                }
-            }
 
             // TODO: Collision detection
 
-            // collisionDetector.checkCollisions(player,enemies,projectiles);
-            for (Projectile p : projectiles) {
-                if (p != null) {
-                    if (p.outOfBounds(field)) {
-                        p.destroy();
+            for (Projectile projectile : projectiles) {
+                if (projectile != null) {
+                    projectile.projectileMove();
+                    if (!projectile.isFriendly() && projectile.comparePos(player)) {
+                        player.hit(projectile.getDamage());
+                        projectile.destroy();
+                    }
+                    for (Enemy enemy : enemies) {
+                        if (enemy != null) {
+                            if (projectile.isFriendly() && projectile.comparePos(enemy)) {
+                                enemy.hit(projectile.getDamage());
+                                projectile.destroy();
+                            }
+                        }
+                    }
+                    if (projectile.outOfBounds(field)) {
+                        projectile.destroy();
                     }
                 }
             }

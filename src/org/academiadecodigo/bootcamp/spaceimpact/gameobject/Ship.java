@@ -6,10 +6,12 @@ public abstract class Ship extends MovableGameObject {
 
     private int hitPoints;
 
-    public Ship(Representable representation, int x, int y) {
+    public Ship(Representable representation, int x, int y, int w, int h) {
         super(representation);
         this.setX(x);
         this.setY(y);
+        this.setW(w);
+        this.setH(h);
     }
 
     public int getHitPoints() {

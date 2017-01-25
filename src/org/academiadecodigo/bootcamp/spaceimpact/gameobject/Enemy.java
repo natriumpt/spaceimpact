@@ -9,8 +9,8 @@ public class Enemy extends Ship {
     private TargetPosition targetPosition;
     private int [] stepsSmoothing = new int [2];
 
-    public Enemy(Representable representation, int x, int y, ProjectileFactory projectileFactory) {
-        super(representation, x, y);
+    public Enemy(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
+        super(representation, x, y, w, h);
         this.projectileFactory = projectileFactory;
         setHitPoints(3);
         setSpeed(1); // TODO: Change this to reasonable values
