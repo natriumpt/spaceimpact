@@ -10,6 +10,8 @@ public class Player extends Ship {
     private SoundHandler soundHandler = new SoundHandler();
     private int fireBuffer;
     private int lives;
+    private int score;
+    private String playerName;
 
     public Player(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
@@ -17,6 +19,22 @@ public class Player extends Ship {
         setHitPoints(3);
         setLives(3);
         setSpeed(8); // TODO: change this to a more reasonable value
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void increaseScore(){
+        score++;
+    }
+
+    public int getScore(){
+        return score;
     }
 
     public void increaseLives() {

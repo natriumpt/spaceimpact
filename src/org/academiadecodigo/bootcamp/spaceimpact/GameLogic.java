@@ -92,6 +92,7 @@ public class GameLogic {
                             }
                             if (projectile.isFriendly() && projectile.comparePos(enemy)) { // collision check
                                 enemy.hit(projectile.getDamage());  // damage value applied to hit() method
+                                player.increaseScore();             // player score increased
                                 projectile.destroy();               // destroys projectile
                             }
                         }
