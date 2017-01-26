@@ -4,45 +4,25 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class SimpleGfxField extends SimpleGfxRepresentable {
 
-    private int pictureStateMachine;
-    private Picture[] pictureArray;
+    private int currentFrame;
+    private Picture[] animation;
 
     public SimpleGfxField(int x, int y) {
-        super(new Picture(x,y,"background1.png"));
-        this.pictureArray = new Picture[30];
-        pictureStateMachine = 1;
-        fillPictureArray(x,y);
-    }
-
-    public void fillPictureArray(int x, int y){
-        for (int i = 1; i < pictureArray.length ; i++){
-                pictureArray[i] = new Picture(x,y,"background" + i +".png");
+        this.animation = new Picture[30];
+        for (int i = 0; i < animation.length; i++) {
+            animation[i] = new Picture(x, y, "background" + i + ".png");
         }
     }
 
-    public void deletingPicture(){
-        Picture picture;
-        picture = pictureArray[pictureStateMachine];
-        picture.delete();
+    public void playAnimation() {
+        animation[currentFrame].delete();
+        if (currentFrame == animation.length - 1) {
+            currentFrame = 0;
+        } else {
+            currentFrame++;
+        }
+        animation[currentFrame].draw();
     }
-
-    public void stateMachinePictureChanging() {
-        Picture picture;
-
-        if (pictureStateMachine > 30)
-            pictureStateMachine = 1;
-
-        deletingPicture();
-        pictureStateMachine++;
-        picture = pictureArray[pictureStateMachine];
-        picture.draw();
-    }
-
-
-
-
-
-
 
 
 }

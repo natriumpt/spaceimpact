@@ -5,6 +5,10 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public abstract class SimpleGfxMovableRepresentable extends SimpleGfxRepresentable implements MovableRepresentable {
 
+    public SimpleGfxMovableRepresentable() {
+
+    }
+
     public SimpleGfxMovableRepresentable(Picture picture) {
         super(picture);
     }

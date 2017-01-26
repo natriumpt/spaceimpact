@@ -7,6 +7,9 @@ public abstract class SimpleGfxRepresentable implements Representable {
 
     private Picture picture;
 
+    public SimpleGfxRepresentable() {
+    }
+
     public SimpleGfxRepresentable(Picture picture) {
         this.picture = picture;
         picture.draw();
@@ -14,6 +17,10 @@ public abstract class SimpleGfxRepresentable implements Representable {
 
     public Picture getPicture() {
         return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     @Override

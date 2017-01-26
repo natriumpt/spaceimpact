@@ -2,8 +2,10 @@ package org.academiadecodigo.bootcamp.spaceimpact;
 
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Controllable;
-import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxKeyboard;
-import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.SimpleGfxRepresentableFactory;
+import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.*;
+import org.academiadecodigo.bootcamp.spaceimpact.sound.SoundHandler;
+
+import java.io.IOException;
 
 public class GameLogic {
 
@@ -12,10 +14,6 @@ public class GameLogic {
     private GameObjectFactory gameObjectFactory;
     private ProjectileFactory projectileFactory;
     private Controllable controllable;
-    private Player player;
-    private Enemy[] enemies;
-    private Projectile[] projectiles;
-    private Field field;
 
 
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
@@ -23,88 +21,90 @@ public class GameLogic {
         this.projectileFactory = projectileFactory;
     }
 
+    /**
+     * The start method instances the required objects and sets motion to the main game logic
+     * *
+     *
+     * @throws InterruptedException
+     */
 
-    public void start() throws InterruptedException {
+    public void start() throws InterruptedException, IOException {
 
-        // TODO: Create instances for permanent objects (i.e. player, field)
+        // TODO: Enemy instance creation, creation pattern rollover
 
-        /* The below declarations are not final
-            Missing initialization properties for player && field */
-        field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD, 0, 0);
-        player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getW() / 4, field.getH() / 2, 34, 15, projectileFactory);
-        enemies = new Enemy[ENEMY_LIMIT];
-        projectiles = new Projectile[PROJECTILE_LIMIT];
+        /**
+         * The default objects are instanced;
+         */
+
+        Field field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD, 0, 0);
+        Player player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getW() / 4, field.getH() / 2, 34, 15, projectileFactory);
+        Enemy[] enemies = new Enemy[ENEMY_LIMIT];
+        Projectile[] projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
+        SoundHandler soundHandler = new SoundHandler();
+        soundHandler.playBackground();
+
+        /*
+         * The line below checks for SimpleGfx and instances it's KeyboardHandler class.
+         * It needs to be changed if another library is implemented.
+         */
 
         if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
-            this.controllable = new SimpleGfxKeyboard(this.player);
+            this.controllable = new SimpleGfxKeyboard(player);
         }
 
         while (true) {
 
-            /* Each cycle of our game (1/30th of a second) will run one iteration of the behaviour of all non-player
-                objects */
-
-            // TODO: Implement methods to run in each cycle
-
-            // TODO: Lower player movement/firing buffer cooldowns until 0;
+            /*
+              Buffer block goes first, handles player fire rate and input latency
+             */
+            if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
+                ((SimpleGfxField) field.getRepresentation()).playAnimation();
+                ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().delete();
+                ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().draw();
+            }
             player.decreaseFireBuffer();
             controllable.controlCycle(field);
 
             // TODO: Create enemy array. Run through all the enemies and order next move/fire command.
 
             /*
-            for (Enemy e : enemies) {
-                e.nextPatternStepCycle?
-                e.moveToTarget;
-            }
-            */
+             * The below block handles the projectile collision logic in it's entirety (movement && collision)
+             */
 
-            // TODO: Create projectile array. Run through all projectile and order next move command.
-
-            // TODO: Collision detection
-
-            for (Projectile projectile : projectiles) {
-                if (projectile != null) {
-                    projectile.projectileMove();
-                    if (!projectile.isFriendly() && projectile.comparePos(player)) {
-                        player.hit(projectile.getDamage());
-                        projectile.destroy();
+            for (Projectile projectile : projectiles) { // iterates through projectile array
+                if (projectile != null) {               // ignores the index if the object is null
+                    if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
+                        // ((SimpleGfxRepresentable) projectile.getRepresentation()).getPicture().delete();
+                        // ((SimpleGfxRepresentable) projectile.getRepresentation()).getPicture().draw();
+                        // ((SimpleGfxProjectile) projectile.getRepresentation()).playAnimation();
                     }
-                    for (Enemy enemy : enemies) {
-                        if (enemy != null) {
-                            if (projectile.isFriendly() && projectile.comparePos(enemy)) {
-                                enemy.hit(projectile.getDamage());
-                                projectile.destroy();
+                    projectile.projectileMove();        // orders all projectiles to move to next step
+                    if (!projectile.isFriendly() && projectile.comparePos(player)) { // collision check
+                        player.hit(projectile.getDamage()); // damage value is applied to hit() method
+                        projectile.destroy();               // destroys projectile
+                    }
+                    for (Enemy enemy : enemies) {   // iterates through enemy array
+                        if (enemy != null) {        // ignores the index if the object is null
+                            if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
+                                ((SimpleGfxRepresentable) enemy.getRepresentation()).getPicture().delete(); // Animation fix
+                                ((SimpleGfxRepresentable) enemy.getRepresentation()).getPicture().draw(); // Animation fix
+                            }
+                            if (projectile.isFriendly() && projectile.comparePos(enemy)) { // collision check
+                                enemy.hit(projectile.getDamage());  // damage value applied to hit() method
+                                projectile.destroy();               // destroys projectile
                             }
                         }
                     }
-                    if (projectile.outOfBounds(field)) {
-                        projectile.destroy();
+                    if (projectile.outOfBounds(field)) {    // checks if the projectile is out of bounds
+                        projectile.destroy();               // destroys projectile
                     }
                 }
             }
 
-            Thread.sleep(33); // Pauses the thread every 1/30th of a second
+            Thread.sleep(33); // pauses the thread for 33 ms (for achieving 30fps)
         }
 
     }
-
-//    // TODO: this should be checked by the collision detector
-//    public boolean checkFieldLimits(Projectile p) {
-//
-//        int fieldHeight = 420; //TODO: alterar estes magic numbers, isto é só para testes
-//        int fieldWidth = 800;
-//        boolean projectileOutOfBounds = false;
-//
-//
-//        if (p.getX() < 0 || p.getX() > fieldWidth || p.getY() > fieldHeight || p.getY() < 0) {
-//            System.out.println("Projectile out of bounds"); //do something instead of sout
-//            projectileOutOfBounds = true;
-//        }
-//
-//        return projectileOutOfBounds;
-//
-//    }
 
 }
