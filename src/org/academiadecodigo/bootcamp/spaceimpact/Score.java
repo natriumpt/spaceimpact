@@ -2,9 +2,7 @@ package org.academiadecodigo.bootcamp.spaceimpact;
 
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Player;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class Score {
 
@@ -17,15 +15,19 @@ public class Score {
     }
 
 
-    public Score(Player player, int score){
-        FileOutputStream outputStream = new FileOutputStream("shistory.txt");
-
-        int c;
-
+    public void setScore(Player player) throws IOException {
+        /*Streams (InputStream and OutputStream) transfer binary data. If you want to write a string to a stream, you must first convert it to bytes, or in other words encode it. You can do that manually (as you suggest) using the String.getBytes(Charset) method, but you should avoid the String.getBytes() method, because that uses the default encoding of the JVM, which can't be reliably predicted in a portable way.
+        The usual way to write character data to a stream, though, is to wrap the stream in a Writer, (often a PrintWriter), that does the conversion for you when you call its write(String) (or print(String)) method. The corresponding wrapper for InputStreams is a Reader.
+        PrintStream is a special OutputStream implementation
+        */
+        PrintStream outputStream = new PrintStream("shistory.txt");
+        outputStream.print(player.getPlayerName());
+        //outputStream.prin(player.getScore());
+        outputStream.close();
         //while ((c = ))
     }
 
-    public void isHighscore(int score) throws IOException {
+    public void checkHighscore(int score) throws IOException {
         try{
             FileInputStream inputStream = new FileInputStream("shistory.txt");
 
@@ -34,7 +36,7 @@ public class Score {
             int line = inputStream.read(buffer);
 
 
-            inputStream.
+            //inputStream.
 
         } catch (IOException e){
             e.printStackTrace();
