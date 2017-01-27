@@ -147,7 +147,7 @@ public class GameLogic {
                 if (!enemy.isDestroyed()) {
                     // TODO: Enemy behaviour
                     ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation();
-                    System.out.println(enemy);
+                    enemy.updatePattern(enemy);
 
                     if (enemy.getHitPoints() <= 0) {
 
