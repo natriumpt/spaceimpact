@@ -18,14 +18,7 @@ public class Field extends GameObject {
 
     }
 
-    public Field(Representable representation, int x, int y, int w, int h) {
-        super(representation);
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
 
-    }
 
     public int getW() {
         return w;

@@ -12,22 +12,16 @@ public class GameLogic {
     private ProjectileFactory projectileFactory;
     private Controllable controllable;
 
-
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
         this.gameObjectFactory = gameObjectFactory;
         this.projectileFactory = projectileFactory;
     }
 
-    /**
-     * The start method instances the required objects and sets motion to the main game logic
-     * *
-     *
-     * @throws InterruptedException
+    /*
+     * Start game method
      */
 
     public void start() throws InterruptedException {
-
-        // TODO: Enemy instance creation, creation pattern rollover
 
         /*
          * The default objects are instanced;
@@ -39,7 +33,7 @@ public class GameLogic {
         Projectile[] projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
 
-        enemies[0] = (Enemy)gameObjectFactory.createObject(GameObjectType.ENEMY,field.getW() - 100, field.getH()/2,47,53,projectileFactory);
+        enemies[0] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, field.getW() - 100, field.getH() / 2, 47, 53, projectileFactory);
 
         /*
          * The line below checks for SimpleGfx and instances it's KeyboardHandler class.
@@ -52,54 +46,105 @@ public class GameLogic {
 
         while (true) {
 
-            /*
-              Buffer block goes first, handles player fire rate and input latency
-             */
-            if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
-                ((SimpleGfxField) field.getRepresentation()).playAnimation();
-                ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().delete();
-                ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().draw();
-                ((SimpleGfxEnemy)enemies[0].getRepresentation()).playAnimation();
-            }
+            fieldLogic(field, player);
+            playerLogic(field, player);
+            enemyLogic(enemies);
+            projectileLogic(field, player, enemies, projectiles);
+
+            Thread.sleep(33);
+
+        }
+
+    }
+
+    private void fieldLogic(Field field, Player player) {
+        if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
+            ((SimpleGfxField) field.getRepresentation()).playAnimation();
+            ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().delete();
+            ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().draw();
+        }
+    }
+
+    /*
+        Player logic
+     */
+    private void playerLogic(Field field, Player player) {
+
+        if(!player.isDestroyed()) {
+
             player.decreaseFireBuffer();
             controllable.controlCycle(field);
 
+            if (player.getHitPoints() <= 0) {
 
-            // TODO: Create enemy array. Run through all the enemies and order next move/fire command.
+                player.destroy();
+                player.decreaseLives();
+                //player.removeControl
+                //player.respawn
+
+                if (player.getLives() <= 0){
+
+                    //gameover();
+                }
+
+            }
+
+        }
+
+    }
 
 
 
-            /*
-             * The below block handles the projectile collision logic in it's entirety (movement && collision)
-             */
+    /*
+     * Enemy logic
+     */
+    private void enemyLogic(Enemy[] enemies) {
+        for (Enemy enemy : enemies) {
 
-            for (Projectile projectile : projectiles) { // iterates through projectile array
-                if (projectile != null) {               // ignores the index if the object is null
-                    if(!projectile.isDestroyed()) {
-                        projectile.projectileMove();        // orders all projectiles to move to next step
-                        if (!projectile.isFriendly() && projectile.comparePos(player)) { // collision check
-                            player.hit(projectile.getDamage()); // damage value is applied to hit() method
-                            projectile.destroy();               // destroys projectile
-                        }
-                        for (Enemy enemy : enemies) {   // iterates through enemy array
-                            if (enemy != null) {        // ignores the index if the object is null
-                                if (projectile.isFriendly() && projectile.comparePos(enemy)) { // collision check
-                                    enemy.hit(projectile.getDamage());  // damage value applied to hit() method
-                                    player.increaseScore();             // player score increased
-                                    projectile.destroy();               // destroys projectile
-                                }
-                            }
-                        }
-                        if (projectile.outOfBounds(field)) {    // checks if the projectile is out of bounds
-                            projectile.destroy();               // destroys projectile
-                        }
+
+            if (enemy != null) {
+                if (!enemy.isDestroyed()) {
+                    // TODO: Enemy behaviour
+                    ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation();
+                    System.out.println(enemy);
+
+                    if (enemy.getHitPoints() <= 0) {
+
+                        enemy.destroy();
+
                     }
                 }
             }
-
-            Thread.sleep(33); // pauses the thread for 33 ms (for achieving 30fps)
         }
+    }
 
+    /*
+     * Projectile and collision
+     */
+    private void projectileLogic(Field field, Player player, Enemy[] enemies, Projectile[] projectiles) {
+        for (Projectile projectile : projectiles) {
+            if (projectile != null) {
+                if (!projectile.isDestroyed()) {
+                    projectile.projectileMove();
+                    if (!projectile.isFriendly() && projectile.comparePos(player)) {
+                        player.hit(projectile.getDamage());
+                        projectile.destroy();
+                    }
+                    for (Enemy enemy : enemies) {
+                        if (enemy != null) {
+                            if (projectile.isFriendly() && projectile.comparePos(enemy)) {
+                                enemy.hit(projectile.getDamage());
+                                player.increaseScore();
+                                projectile.destroy();
+                            }
+                        }
+                    }
+                    if (projectile.outOfBounds(field)) {
+                        projectile.destroy();
+                    }
+                }
+            }
+        }
     }
 
 }

@@ -8,6 +8,7 @@ public class Enemy extends Ship {
     private TargetPosition targetPosition;
     private int currentPattern;
     private int[] stepsSmoothing = new int[2];
+    private boolean destroyed;
 
     public Enemy(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
@@ -39,7 +40,8 @@ public class Enemy extends Ship {
 
     @Override
     public void fire() {
-        projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX(), getY(), 16, 4, false, 1, 16);
+        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, 1, 30);
+
     }
 
     public void newPattern() {
@@ -86,12 +88,14 @@ public class Enemy extends Ship {
                 System.out.println("Did case 0 ");
                 currentPattern++;
                 break;
+
             case 1:
                 targetPosition.setX(360);
                 targetPosition.setY(50);
                 System.out.println("Did case 1 ");
                 currentPattern++;
                 break;
+
             case 2:
                 targetPosition.setX(50);
                 targetPosition.setY(240);
@@ -105,6 +109,7 @@ public class Enemy extends Ship {
                 System.out.println("Did case 3");
                 currentPattern = 0;
                 break;
+
             default:
                 System.out.println("Shit");
 
@@ -150,6 +155,16 @@ public class Enemy extends Ship {
     public boolean inTargetPosition() {
         return (this.getX() == this.targetPosition.getX() && this.getY() == this.targetPosition.getY());
     }
+
+    public void destroy() {
+        super.destroy();
+        this.destroyed = true;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
 
     @Override
     public String toString() {
