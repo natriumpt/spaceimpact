@@ -39,7 +39,7 @@ public class GameLogic {
         Projectile[] projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
 
-        enemies[0] = (Enemy)gameObjectFactory.createObject(GameObjectType.ENEMY,field.getW() - 100, field.getH()/2,47,53,projectileFactory);
+        enemies[0] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, field.getW() - 100, field.getH() / 2, 47, 53, projectileFactory);
 
         /*
          * The line below checks for SimpleGfx and instances it's KeyboardHandler class.
@@ -59,7 +59,7 @@ public class GameLogic {
                 ((SimpleGfxField) field.getRepresentation()).playAnimation();
                 ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().delete();
                 ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().draw();
-                ((SimpleGfxEnemy)enemies[0].getRepresentation()).playAnimation();
+                ((SimpleGfxEnemy) enemies[0].getRepresentation()).playAnimation();
             }
             player.decreaseFireBuffer();
             controllable.controlCycle(field);
@@ -68,6 +68,7 @@ public class GameLogic {
             // TODO: Create enemy array. Run through all the enemies and order next move/fire command.
 
 
+            enemies[0].pattern();
 
             /*
              * The below block handles the projectile collision logic in it's entirety (movement && collision)
@@ -75,7 +76,7 @@ public class GameLogic {
 
             for (Projectile projectile : projectiles) { // iterates through projectile array
                 if (projectile != null) {               // ignores the index if the object is null
-                    if(!projectile.isDestroyed()) {
+                    if (!projectile.isDestroyed()) {
                         projectile.projectileMove();        // orders all projectiles to move to next step
                         if (!projectile.isFriendly() && projectile.comparePos(player)) { // collision check
                             player.hit(projectile.getDamage()); // damage value is applied to hit() method

@@ -37,7 +37,7 @@ public class Enemy extends Ship {
 
     @Override
     public void fire() {
-        projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX(), getY(), 16, 4, false, 1, 100);
+        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, false, 1, 30);
     }
 
     public void pattern() {
@@ -53,22 +53,22 @@ public class Enemy extends Ship {
                 fire();
                 targetPosition.setTargetX(50);
                 targetPosition.setTargetY(50);
-                stepsCalc(targetPosition.getTargetX(),targetPosition.getTargetY());
+                stepsCalc();
                 currentPattern++;
                 break;
             case 1:
                 fire();
                 targetPosition.setTargetX(100);
                 targetPosition.setTargetY(100);
-                stepsCalc(targetPosition.getTargetX(),targetPosition.getTargetY());
+                stepsCalc();
                 currentPattern++;
                 break;
             case 2:
                 fire();
                 targetPosition.setTargetX(150);
                 targetPosition.setTargetY(150);
-                stepsCalc(targetPosition.getTargetX(),targetPosition.getTargetY());
-                currentPattern++;
+                stepsCalc();
+                currentPattern = 0;
                 break;
             default:
                 System.out.println("Shit");
@@ -77,7 +77,7 @@ public class Enemy extends Ship {
         }
     }
 
-    public int [] stepsCalc(int targetX , int targetY){
+    public void stepsCalc(){
         int enemyCurX = getX();
         int enemyCurY = getY();
 
@@ -97,17 +97,15 @@ public class Enemy extends Ship {
         if (Math.abs(dx) > Math.abs(dy)) {
             steps = Math.abs(dx);
         } else {
-            steps =Math.abs(dy);
+            steps = Math.abs(dy);
         }
 
 
         xIncrement = dx/steps;
         yIncrement = dy/steps;
 
-        movePattern[0] = xIncrement;
-        movePattern[1] = yIncrement;
-
-        return movePattern;
+        stepsSmoothing[0] = xIncrement;
+        stepsSmoothing[1] = yIncrement;
 
     }
 
