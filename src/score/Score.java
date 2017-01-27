@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.spaceimpact;
+package score;
 
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Player;
 
