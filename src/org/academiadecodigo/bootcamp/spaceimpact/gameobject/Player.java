@@ -56,7 +56,7 @@ public class Player extends Ship {
     @Override
     public void fire() {
         if (fireBuffer == 0) {
-            projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX() + getW(), getY() + getH() / 4, 16, 4, true, 1, 20);
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX() + getW(), getY() + getH() / 4, 16, 4, 1, 20);
             fireBuffer = 3;
         }
     }

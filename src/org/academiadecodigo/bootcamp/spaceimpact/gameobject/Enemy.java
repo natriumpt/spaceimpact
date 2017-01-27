@@ -39,7 +39,7 @@ public class Enemy extends Ship {
 
     @Override
     public void fire() {
-        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, false, 1, 30);
+        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, 1, 30);
 
     }
 
