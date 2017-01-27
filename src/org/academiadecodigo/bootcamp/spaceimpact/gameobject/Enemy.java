@@ -13,8 +13,8 @@ public class Enemy extends Ship {
         super(representation, x, y, w, h);
         this.projectileFactory = projectileFactory;
         setHitPoints(3);
-        setSpeed(20); // TODO: Change this to reasonable values
-        targetPosition = new TargetPosition(100, 100);
+        setSpeed(4); // TODO: Change this to reasonable values
+        targetPosition = new TargetPosition(100,100);
     }
 
     public void enemyMove(int x, int y) {

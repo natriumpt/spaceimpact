@@ -1,15 +1,13 @@
 package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
-import org.academiadecodigo.bootcamp.spaceimpact.sound.SoundHandler;
-
-import java.io.IOException;
 
 public class Player extends Ship {
 
     private ProjectileFactory projectileFactory;
-    private SoundHandler soundHandler = new SoundHandler();
     private int fireBuffer;
     private int lives;
+    private int score;
+    private String playerName;
 
     public Player(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
@@ -17,6 +15,22 @@ public class Player extends Ship {
         setHitPoints(3);
         setLives(3);
         setSpeed(8); // TODO: change this to a more reasonable value
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void increaseScore(){
+        score++;
+    }
+
+    public int getScore(){
+        return score;
     }
 
     public void increaseLives() {
@@ -42,12 +56,7 @@ public class Player extends Ship {
     @Override
     public void fire() {
         if (fireBuffer == 0) {
-            projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX() + getW(), getY() + getH() / 2, 16, 4, true, 1, 20);
-            try {
-                soundHandler.playFire();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            projectileFactory.createProjectile(GameObjectType.PROJECTILE, getX() + getW(), getY() + getH() / 4, 16, 4, true, 1, 20);
             fireBuffer = 3;
         }
     }
