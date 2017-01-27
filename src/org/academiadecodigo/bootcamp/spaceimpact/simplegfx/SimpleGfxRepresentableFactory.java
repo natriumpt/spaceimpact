@@ -23,7 +23,10 @@ public class SimpleGfxRepresentableFactory implements RepresentableFactory {
                 representation = new SimpleGfxField(PADDING, PADDING);
                 break;
             case PROJECTILE:
-                representation = new SimpleGfxProjectile(x, y);
+                representation = new SimpleGfxProjectile(GameObjectType.PROJECTILE,x, y);
+                break;
+            case ENEMYPROJECTILE:
+                representation = new SimpleGfxProjectile(GameObjectType.ENEMYPROJECTILE,x,y);
                 break;
         }
 
