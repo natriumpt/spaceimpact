@@ -14,17 +14,17 @@ public class ProjectileFactory extends GameObjectFactory {
         this.representableFactory = representableFactory;
     }
 
-    public Projectile createProjectile(GameObjectType type, int x, int y, int w, int h, boolean friendly, int damage, int speed) {
+    public Projectile createProjectile(GameObjectType type, int x, int y, int w, int h, int damage, int speed) {
 
         Projectile projectile = null;
 
         switch (type) {
             case PROJECTILE:
-                projectile = new Projectile((Representable) representableFactory.createRepresentation(type, x, y), x, y, w, h, friendly, damage, speed);
+                projectile = new Projectile((Representable) representableFactory.createRepresentation(type, x, y), type, x, y, w, h, damage, speed);
                 addToProjectileArray((Projectile) projectile);
                 break;
             case ENEMYPROJECTILE:
-                projectile = new Projectile((Representable) representableFactory.createRepresentation(type,x,y),x,y,w,h,friendly,damage,speed);
+                projectile = new Projectile((Representable) representableFactory.createRepresentation(type,x,y),type,x,y,w,h,damage,speed);
                 addToProjectileArray((Projectile) projectile);
                 break;
         }

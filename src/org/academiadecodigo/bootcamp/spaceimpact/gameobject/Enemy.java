@@ -15,7 +15,7 @@ public class Enemy extends Ship {
         this.projectileFactory = projectileFactory;
         setHitPoints(3);
         setSpeed(4); // TODO: Change this to reasonable values
-        targetPosition = new TargetPosition(100,100);
+        targetPosition = new TargetPosition(600, 260);
     }
 
     public void enemyMove(int x, int y) {
@@ -40,7 +40,7 @@ public class Enemy extends Ship {
 
     @Override
     public void fire() {
-        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, false, 1, 30);
+        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, 1, 30);
 
     }
 
@@ -68,39 +68,46 @@ public class Enemy extends Ship {
     public void pattern() {
         // TODO: Implement a pattern for the enemy
 
-        if (!inTargetPosition()) {
+        stepsCalc();
+
+        System.out.println(inTargetPosition());
+        System.out.println(currentPattern);
+
+
+        //if (!inTargetPosition()) {
+        if (!this.comparePos(targetPosition)) {
             move(getSpeed() * stepsSmoothing[0], getSpeed() * stepsSmoothing[1]);
+            return;
         }
 
         switch (currentPattern) {
 
             case 0:
-                fire();
-                targetPosition.setTargetX(50);
-                targetPosition.setTargetY(50);
-
-                stepsCalc();
+                targetPosition.setX(600);
+                targetPosition.setY(240);
+                System.out.println("Did case 0 ");
                 currentPattern++;
-
                 break;
 
             case 1:
-                fire();
-                targetPosition.setTargetX(100);
-                targetPosition.setTargetY(100);
-
-                stepsCalc();
+                targetPosition.setX(360);
+                targetPosition.setY(50);
+                System.out.println("Did case 1 ");
                 currentPattern++;
                 break;
 
             case 2:
-                fire();
-                targetPosition.setTargetX(150);
-                targetPosition.setTargetY(150);
-
-                stepsCalc();
+                targetPosition.setX(50);
+                targetPosition.setY(240);
+                currentPattern++;
+                System.out.println("Did case 2 ");
+                break;
+            case 3:
+                targetPosition.setX(360);
+                targetPosition.setY(400);
+                currentPattern++;
+                System.out.println("Did case 3");
                 currentPattern = 0;
-
                 break;
 
             default:
@@ -110,25 +117,26 @@ public class Enemy extends Ship {
         }
     }
 
-    public void stepsCalc(){
+    public void stepsCalc() {
+
+        if (inTargetPosition()) return;
 
         int enemyCurX = getX();
         int enemyCurY = getY();
 
-        int goalX = targetPosition.getTargetX();
-        int goalY = targetPosition.getTargetY();
+        int goalX = targetPosition.getX();
+        int goalY = targetPosition.getY();
 
         int xIncrement;
         int yIncrement;
 
-        int movePattern[] = new int[2];
 
         int dx = goalX - enemyCurX;
         int dy = goalY - enemyCurY;
 
         int steps;
 
-        if (Math.abs(dx) > Math.abs(dy)) {
+        if (Math.abs(dx) >= Math.abs(dy)) {
             steps = Math.abs(dx);
         } else {
             steps = Math.abs(dy);
@@ -141,10 +149,11 @@ public class Enemy extends Ship {
         stepsSmoothing[0] = xIncrement;
         stepsSmoothing[1] = yIncrement;
 
+
     }
 
     public boolean inTargetPosition() {
-        return (this.getX() == this.targetPosition.getTargetX() && this.getY() == this.targetPosition.getTargetY());
+        return (this.getX() == this.targetPosition.getX() && this.getY() == this.targetPosition.getY());
     }
 
     public void destroy() {

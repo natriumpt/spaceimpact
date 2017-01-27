@@ -4,13 +4,13 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 
 public class Projectile extends MovableGameObject {
 
-    private boolean friendly;
     private boolean destroyed;
     private int damage;
+    private GameObjectType type;
 
-    public Projectile(Representable representation, int x, int y, int w, int h, boolean friendly, int damage, int speed) {
+    public Projectile(Representable representation, GameObjectType type, int x, int y, int w, int h, int damage, int speed) {
         super(representation);
-        this.friendly = friendly;
+        this.type = type;
         this.damage = damage;
         setX(x);
         setY(y);
@@ -34,12 +34,19 @@ public class Projectile extends MovableGameObject {
     }
 
     public boolean isFriendly() {
-        return friendly;
+
+        if(type != GameObjectType.ENEMYPROJECTILE){
+            return true;
+        }
+
+        return false;
+
+
     }
 
     public void projectileMove() {
         if (!destroyed) {
-            if (friendly) {
+            if (isFriendly()) {
                 super.move(getSpeed(), 0);
             } else {
                 super.move(-getSpeed(), 0);
