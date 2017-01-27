@@ -5,17 +5,15 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 public class Enemy extends Ship {
 
     private ProjectileFactory projectileFactory;
-    private TargetPosition targetPosition;
-    private int currentPattern;
-    private int[] stepsSmoothing = new int[2];
     private boolean destroyed;
+    private Pattern pattern;
 
     public Enemy(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
         this.projectileFactory = projectileFactory;
         setHitPoints(3);
         setSpeed(4); // TODO: Change this to reasonable values
-        targetPosition = new TargetPosition(600, 260);
+        pattern = new Pattern();
     }
 
     public void enemyMove(int x, int y) {
@@ -38,123 +36,16 @@ public class Enemy extends Ship {
         }
     }
 
+    public void updatePattern(Enemy enemy){
+        enemy.pattern.doPattern(enemy);
+    }
+
     @Override
     public void fire() {
-        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, 1, 30);
+        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY() + getH() / 2, 16, 4, 1, 12);
 
     }
 
-    public void newPattern() {
-        switch (currentPattern) {
-            case 0:
-                if (getX() != 50 && getY() != 50) {
-                    enemyMove(50, 50);
-                    System.out.println("Attempting move 50 50");
-                } else {
-                    fire();
-                    System.out.println("Attempting fire");
-                    currentPattern = 1;
-                }
-            case 1:
-                if (getX() != 1000 && getY() != 200) {
-                    enemyMove(1000, 200);
-                } else {
-                    fire();
-                    currentPattern = 0;
-                }
-        }
-    }
-
-    public void pattern() {
-        // TODO: Implement a pattern for the enemy
-
-        stepsCalc();
-
-        System.out.println(inTargetPosition());
-        System.out.println(currentPattern);
-
-
-        //if (!inTargetPosition()) {
-        if (!this.comparePos(targetPosition)) {
-            move(getSpeed() * stepsSmoothing[0], getSpeed() * stepsSmoothing[1]);
-            return;
-        }
-
-        switch (currentPattern) {
-
-            case 0:
-                targetPosition.setX(600);
-                targetPosition.setY(240);
-                System.out.println("Did case 0 ");
-                currentPattern++;
-                break;
-
-            case 1:
-                targetPosition.setX(360);
-                targetPosition.setY(50);
-                System.out.println("Did case 1 ");
-                currentPattern++;
-                break;
-
-            case 2:
-                targetPosition.setX(50);
-                targetPosition.setY(240);
-                currentPattern++;
-                System.out.println("Did case 2 ");
-                break;
-            case 3:
-                targetPosition.setX(360);
-                targetPosition.setY(400);
-                currentPattern++;
-                System.out.println("Did case 3");
-                currentPattern = 0;
-                break;
-
-            default:
-                System.out.println("Shit");
-
-
-        }
-    }
-
-    public void stepsCalc() {
-
-        if (inTargetPosition()) return;
-
-        int enemyCurX = getX();
-        int enemyCurY = getY();
-
-        int goalX = targetPosition.getX();
-        int goalY = targetPosition.getY();
-
-        int xIncrement;
-        int yIncrement;
-
-
-        int dx = goalX - enemyCurX;
-        int dy = goalY - enemyCurY;
-
-        int steps;
-
-        if (Math.abs(dx) >= Math.abs(dy)) {
-            steps = Math.abs(dx);
-        } else {
-            steps = Math.abs(dy);
-        }
-
-
-        xIncrement = dx / steps;
-        yIncrement = dy / steps;
-
-        stepsSmoothing[0] = xIncrement;
-        stepsSmoothing[1] = yIncrement;
-
-
-    }
-
-    public boolean inTargetPosition() {
-        return (this.getX() == this.targetPosition.getX() && this.getY() == this.targetPosition.getY());
-    }
 
     public void destroy() {
         super.destroy();
