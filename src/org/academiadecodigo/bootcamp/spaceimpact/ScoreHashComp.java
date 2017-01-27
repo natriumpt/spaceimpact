@@ -7,11 +7,11 @@ import java.util.Map;
 /**
  * Created by codecadet on 1/27/17.
  */
-public class HighScoreHashComp implements Iterable<String> {
+public class ScoreHashComp implements Iterable<String> {
 
         private Map<String,Integer> highScoreHashData;
 
-        public HighScoreHashComp(String text){
+        public ScoreHashComp(String text){
             highScoreHashData = new HashMap<>();
 
             for(String word : text.split(" ")){
@@ -33,4 +33,4 @@ public class HighScoreHashComp implements Iterable<String> {
         }
 
     }
-}
+
