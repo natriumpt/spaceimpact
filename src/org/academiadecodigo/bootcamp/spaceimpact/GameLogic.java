@@ -76,17 +76,16 @@ public class GameLogic {
     public void createEnemies(){
         for (int i = 0; i < ENEMY_LIMIT; i++) {
 
-            if (enemies[i] == null) {
-                System.out.println("Enemies[i] is null");
+            if (enemies[i] == null || enemies[i].isDestroyed()) {
 
                 int minX = field.getW()/2;
-                int posX = minX + (int)(Math.random() * ((field.getW() - minX) + 1));
-                int posY = (int) (Math.random() * ((field.getH() + 1)));
+                int posX = randomPosition(minX,field.getX());
+                int posY = randomPosition(0,field.getH());
 
                 if (player.getX() != posX && player.getY() != posY) {
 
                     for (int j = 0; j < ENEMY_LIMIT; j++) {
-                        if(enemies[j] != null) {
+                        if(enemies[j] != null && !enemies[j].isDestroyed()) {
                             if (enemies[j].getX() != posX && enemies[j].getY() != posY) {
 
                                 enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
@@ -95,7 +94,7 @@ public class GameLogic {
                         }
                     }
 
-                    if(enemies[i] == null) {
+                    if(enemies[i] == null || enemies[i].isDestroyed()) {
                         enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
                         break;
                     }
@@ -103,6 +102,11 @@ public class GameLogic {
             }
         }
 
+
+    }
+
+    public int randomPosition(int min, int max){
+        return min + (int)(Math.random() * ((max - min) + 1));
 
     }
 
