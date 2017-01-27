@@ -8,6 +8,7 @@ public class Enemy extends Ship {
     private TargetPosition targetPosition;
     private int currentPattern;
     private int[] stepsSmoothing = new int[2];
+    private boolean destroyed;
 
     public Enemy(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
@@ -145,6 +146,16 @@ public class Enemy extends Ship {
     public boolean inTargetPosition() {
         return (this.getX() == this.targetPosition.getTargetX() && this.getY() == this.targetPosition.getTargetY());
     }
+
+    public void destroy() {
+        super.destroy();
+        this.destroyed = true;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
 
     @Override
     public String toString() {
