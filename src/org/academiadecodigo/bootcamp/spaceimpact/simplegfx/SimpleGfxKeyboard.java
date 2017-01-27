@@ -17,9 +17,11 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
     private boolean left;
     private boolean right;
     private boolean firing;
+    private boolean running;
 
     public SimpleGfxKeyboard(Player player) {
         this.player = player;
+        this.running = true;
         initializeKeyboard();
     }
 
@@ -76,15 +78,27 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
         releaseFire.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
         k.addEventListener(releaseFire);
 
+        KeyboardEvent quit = new KeyboardEvent();
+        quit.setKey(KeyboardEvent.KEY_P);
+        quit.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        k.addEventListener(quit);
+
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 
     public void controlCycle(Field field) {
-        if (up && player.getY() > player.getH() * 2) player.move(0,-player.getSpeed());
-        if (down && player.getY() < field.getH() - player.getH() * 1.5) player.move(0,player.getSpeed());
-        if (left && player.getX() > player.getW()) player.move(-player.getSpeed(),0);
-        if (right && player.getX() < field.getW() - player.getW()) player.move(player.getSpeed(),0);
-        if (firing) player.fire();
+        if(player.hasControl()) {
+            if (up && player.getY() > player.getH() * 2) player.move(0, -player.getSpeed());
+            if (down && player.getY() < field.getH() - player.getH() * 1.5) player.move(0, player.getSpeed());
+            if (left && player.getX() > player.getW()) player.move(-player.getSpeed(), 0);
+            if (right && player.getX() < field.getW() - player.getW()) player.move(player.getSpeed(), 0);
+            if (firing) player.fire();
+        }
     }
+
 
 /*
     public void controlCycle() {
@@ -122,6 +136,11 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
             case KeyboardEvent.KEY_SPACE:
                 firing = true;
                 System.out.println("Pressed Space");
+                break;
+
+            case KeyboardEvent.KEY_P:
+                running = false;
+                System.out.println("Pressed P to running");
                 break;
         }
     }

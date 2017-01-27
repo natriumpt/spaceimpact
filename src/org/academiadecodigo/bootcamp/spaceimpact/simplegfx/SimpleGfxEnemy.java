@@ -33,6 +33,7 @@ public class SimpleGfxEnemy extends SimpleGfxMovableRepresentable {
         }
     }
 
+
     public void playAnimation() {
         animation[currentFrame].delete();
         if (frameSkip < 0) {

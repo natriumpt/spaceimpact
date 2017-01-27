@@ -6,4 +6,6 @@ public interface MovableRepresentable extends Representable {
 
     void destroy();
 
+    void respawn();
+
 }
