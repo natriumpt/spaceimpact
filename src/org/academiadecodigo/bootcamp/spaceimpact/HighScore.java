@@ -1,4 +1,6 @@
-package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
+package org.academiadecodigo.bootcamp.spaceimpact;
+
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.Player;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,10 +26,15 @@ public class HighScore {
 
          while (line != '\0'){
 
+
          }
 
 
          inputStream.close();
+    }
+
+    public void readHighScore(){
+
     }
 
 
