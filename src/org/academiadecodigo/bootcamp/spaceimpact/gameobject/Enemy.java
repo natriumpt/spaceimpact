@@ -4,10 +4,10 @@ import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Repres
 
 public class Enemy extends Ship {
 
-    ProjectileFactory projectileFactory;
-    private int currentPattern;
+    private ProjectileFactory projectileFactory;
     private TargetPosition targetPosition;
-    private int [] stepsSmoothing = new int [2];
+    private int currentPattern;
+    private int[] stepsSmoothing = new int[2];
 
     public Enemy(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
@@ -20,7 +20,9 @@ public class Enemy extends Ship {
     public void enemyMove(int x, int y) {
         // TODO: Change this to ensure more realistic diagonal movement
         if (getX() != x || getY() != y) {
+            System.out.println("Position is different");
             if (getX() > x) {
+                System.out.println("Position greater than target");
                 move(-getSpeed(), 0);
             }
             if (getX() < x) {
@@ -38,38 +40,68 @@ public class Enemy extends Ship {
     @Override
     public void fire() {
         projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, false, 1, 30);
+
+    }
+
+    public void newPattern() {
+        switch (currentPattern) {
+            case 0:
+                if (getX() != 50 && getY() != 50) {
+                    enemyMove(50, 50);
+                    System.out.println("Attempting move 50 50");
+                } else {
+                    fire();
+                    System.out.println("Attempting fire");
+                    currentPattern = 1;
+                }
+            case 1:
+                if (getX() != 1000 && getY() != 200) {
+                    enemyMove(1000, 200);
+                } else {
+                    fire();
+                    currentPattern = 0;
+                }
+        }
     }
 
     public void pattern() {
         // TODO: Implement a pattern for the enemy
 
-        if (!inTargetPosition()){
-            move(getSpeed()*stepsSmoothing[0],getSpeed()*stepsSmoothing[1]);
+        if (!inTargetPosition()) {
+            move(getSpeed() * stepsSmoothing[0], getSpeed() * stepsSmoothing[1]);
         }
 
-        switch (currentPattern){
+        switch (currentPattern) {
 
             case 0:
                 fire();
                 targetPosition.setTargetX(50);
                 targetPosition.setTargetY(50);
+
                 stepsCalc();
                 currentPattern++;
+
                 break;
+
             case 1:
                 fire();
                 targetPosition.setTargetX(100);
                 targetPosition.setTargetY(100);
+
                 stepsCalc();
                 currentPattern++;
                 break;
+
             case 2:
                 fire();
                 targetPosition.setTargetX(150);
                 targetPosition.setTargetY(150);
+
                 stepsCalc();
                 currentPattern = 0;
+
                 break;
+
             default:
                 System.out.println("Shit");
 
@@ -78,6 +110,7 @@ public class Enemy extends Ship {
     }
 
     public void stepsCalc(){
+
         int enemyCurX = getX();
         int enemyCurY = getY();
 
@@ -87,7 +120,7 @@ public class Enemy extends Ship {
         int xIncrement;
         int yIncrement;
 
-        int movePattern [] =  new int[2];
+        int movePattern[] = new int[2];
 
         int dx = goalX - enemyCurX;
         int dy = goalY - enemyCurY;
@@ -101,17 +134,20 @@ public class Enemy extends Ship {
         }
 
 
-        xIncrement = dx/steps;
-        yIncrement = dy/steps;
+        xIncrement = dx / steps;
+        yIncrement = dy / steps;
 
         stepsSmoothing[0] = xIncrement;
         stepsSmoothing[1] = yIncrement;
 
     }
 
-    public boolean inTargetPosition(){
-        return (this.getX()==this.targetPosition.getTargetX() && this.getY() == this.targetPosition.getTargetY());
+    public boolean inTargetPosition() {
+        return (this.getX() == this.targetPosition.getTargetX() && this.getY() == this.targetPosition.getTargetY());
     }
 
-
+    @Override
+    public String toString() {
+        return "Enemy " + getX() + " " + getY() + " HP:" + getHitPoints();
+    }
 }
