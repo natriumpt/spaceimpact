@@ -58,4 +58,12 @@ public abstract class GameObject {
                 this.getY() + this.getH() > gameObject.getY());
     }
 
+    public boolean comparePos(TargetPosition targetPosition) {
+        return (
+                this.getX() < targetPosition.getX() + this.getW() &&
+                        this.getX() + this.getW() > targetPosition.getX() &&
+                        this.getY() < targetPosition.getY() + this.getH() &&
+                        this.getY() + this.getH() > targetPosition.getY());
+    }
+
 }

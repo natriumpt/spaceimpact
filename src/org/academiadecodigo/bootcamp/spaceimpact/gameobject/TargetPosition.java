@@ -5,28 +5,28 @@ package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
  */
 public class TargetPosition {
 
-    private int targetX;
-    private int targetY;
+    private int x;
+    private int y;
 
 
-    public TargetPosition(int targetX, int targetY) {
-        this.targetX = targetX;
-        this.targetY = targetY;
+    public TargetPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public int getTargetX() {
-        return targetX;
+    public int getX() {
+        return x;
     }
 
-    public void setTargetX(int targetX) {
-        this.targetX = targetX;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public int getTargetY() {
-        return targetY;
+    public int getY() {
+        return y;
     }
 
-    public void setTargetY(int targetY) {
-        this.targetY = targetY;
+    public void setY(int y) {
+        this.y = y;
     }
 }
