@@ -15,14 +15,5 @@ public class Main {
         GameLogic g = new GameLogic(new GameObjectFactory(representableFactory), new ProjectileFactory(representableFactory));
         g.start();
 
-
-        //projectile testing code
-
-        //        Projectile p = new Projectile(new SimpleGfxPlayer(0,0),true);
-//
-//        System.out.println(p.getX() + "," + p.getY());
-//
-//        p.projectileMove(MoveDirection.RIGHT);
-
     }
 }

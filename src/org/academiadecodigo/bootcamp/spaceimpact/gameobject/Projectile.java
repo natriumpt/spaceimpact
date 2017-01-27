@@ -29,6 +29,10 @@ public class Projectile extends MovableGameObject {
         this.destroyed = true;
     }
 
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
     public boolean isFriendly() {
         return friendly;
     }

@@ -3,9 +3,6 @@ package org.academiadecodigo.bootcamp.spaceimpact;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Controllable;
 import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.*;
-import org.academiadecodigo.bootcamp.spaceimpact.sound.SoundHandler;
-
-import java.io.IOException;
 
 public class GameLogic {
 
@@ -28,11 +25,11 @@ public class GameLogic {
      * @throws InterruptedException
      */
 
-    public void start() throws InterruptedException, IOException {
+    public void start() throws InterruptedException {
 
         // TODO: Enemy instance creation, creation pattern rollover
 
-        /**
+        /*
          * The default objects are instanced;
          */
 
@@ -41,8 +38,8 @@ public class GameLogic {
         Enemy[] enemies = new Enemy[ENEMY_LIMIT];
         Projectile[] projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
-        SoundHandler soundHandler = new SoundHandler();
-        soundHandler.playBackground();
+
+        enemies[0] = (Enemy)gameObjectFactory.createObject(GameObjectType.ENEMY,field.getW() - 100, field.getH()/2,47,53,projectileFactory);
 
         /*
          * The line below checks for SimpleGfx and instances it's KeyboardHandler class.
@@ -62,11 +59,15 @@ public class GameLogic {
                 ((SimpleGfxField) field.getRepresentation()).playAnimation();
                 ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().delete();
                 ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().draw();
+                ((SimpleGfxEnemy)enemies[0].getRepresentation()).playAnimation();
             }
             player.decreaseFireBuffer();
             controllable.controlCycle(field);
 
+
             // TODO: Create enemy array. Run through all the enemies and order next move/fire command.
+
+
 
             /*
              * The below block handles the projectile collision logic in it's entirety (movement && collision)
@@ -74,31 +75,24 @@ public class GameLogic {
 
             for (Projectile projectile : projectiles) { // iterates through projectile array
                 if (projectile != null) {               // ignores the index if the object is null
-                    if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
-                        // ((SimpleGfxRepresentable) projectile.getRepresentation()).getPicture().delete();
-                        // ((SimpleGfxRepresentable) projectile.getRepresentation()).getPicture().draw();
-                        // ((SimpleGfxProjectile) projectile.getRepresentation()).playAnimation();
-                    }
-                    projectile.projectileMove();        // orders all projectiles to move to next step
-                    if (!projectile.isFriendly() && projectile.comparePos(player)) { // collision check
-                        player.hit(projectile.getDamage()); // damage value is applied to hit() method
-                        projectile.destroy();               // destroys projectile
-                    }
-                    for (Enemy enemy : enemies) {   // iterates through enemy array
-                        if (enemy != null) {        // ignores the index if the object is null
-                            if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
-                                ((SimpleGfxRepresentable) enemy.getRepresentation()).getPicture().delete(); // Animation fix
-                                ((SimpleGfxRepresentable) enemy.getRepresentation()).getPicture().draw(); // Animation fix
-                            }
-                            if (projectile.isFriendly() && projectile.comparePos(enemy)) { // collision check
-                                enemy.hit(projectile.getDamage());  // damage value applied to hit() method
-                                player.increaseScore();             // player score increased
-                                projectile.destroy();               // destroys projectile
+                    if(!projectile.isDestroyed()) {
+                        projectile.projectileMove();        // orders all projectiles to move to next step
+                        if (!projectile.isFriendly() && projectile.comparePos(player)) { // collision check
+                            player.hit(projectile.getDamage()); // damage value is applied to hit() method
+                            projectile.destroy();               // destroys projectile
+                        }
+                        for (Enemy enemy : enemies) {   // iterates through enemy array
+                            if (enemy != null) {        // ignores the index if the object is null
+                                if (projectile.isFriendly() && projectile.comparePos(enemy)) { // collision check
+                                    enemy.hit(projectile.getDamage());  // damage value applied to hit() method
+                                    player.increaseScore();             // player score increased
+                                    projectile.destroy();               // destroys projectile
+                                }
                             }
                         }
-                    }
-                    if (projectile.outOfBounds(field)) {    // checks if the projectile is out of bounds
-                        projectile.destroy();               // destroys projectile
+                        if (projectile.outOfBounds(field)) {    // checks if the projectile is out of bounds
+                            projectile.destroy();               // destroys projectile
+                        }
                     }
                 }
             }

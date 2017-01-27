@@ -5,7 +5,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class SimpleGfxPlayer extends SimpleGfxMovableRepresentable {
 
     public SimpleGfxPlayer(int x, int y) {
-        super(new Picture(x, y, "playership.png"));
+        super(new Picture(x, y, "player/playership.png"));
     }
 
 }
