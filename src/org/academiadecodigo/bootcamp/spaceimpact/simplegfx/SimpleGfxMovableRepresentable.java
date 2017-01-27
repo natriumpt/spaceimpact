@@ -25,4 +25,8 @@ public abstract class SimpleGfxMovableRepresentable extends SimpleGfxRepresentab
         this.getPicture().delete();
     }
 
+    @Override
+    public void respawn() {
+        this.getPicture().draw();
+    }
 }

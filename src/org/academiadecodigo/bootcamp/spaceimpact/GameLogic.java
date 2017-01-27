@@ -75,19 +75,51 @@ public class GameLogic {
         Player logic
      */
     private void playerLogic(Field field, Player player) {
-        player.decreaseFireBuffer();
-        controllable.controlCycle(field);
+
+        if(!player.isDestroyed()) {
+
+            player.decreaseFireBuffer();
+            player.decreaseRespawnTimer();
+            controllable.controlCycle(field);
+
+            if (player.getHitPoints() <= 0) {
+
+                player.destroy();
+                player.decreaseLives();
+                player.respawn(); // Still has no code
+
+                if (player.getLives() <= 0){
+
+                    //gameover();
+                }
+
+            }
+
+        }
+
     }
+
+
 
     /*
      * Enemy logic
      */
     private void enemyLogic(Enemy[] enemies) {
         for (Enemy enemy : enemies) {
+
+
             if (enemy != null) {
-                // TODO: Enemy behaviour
-                ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation();
-                System.out.println(enemy);
+                if (!enemy.isDestroyed()) {
+                    // TODO: Enemy behaviour
+                    ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation();
+                    System.out.println(enemy);
+
+                    if (enemy.getHitPoints() <= 0) {
+
+                        enemy.destroy();
+
+                    }
+                }
             }
         }
     }
