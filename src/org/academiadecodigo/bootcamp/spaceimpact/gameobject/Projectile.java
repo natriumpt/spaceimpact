@@ -35,7 +35,7 @@ public class Projectile extends MovableGameObject {
 
     public boolean isFriendly() {
 
-        if(type != GameObjectType.ENEMYPROJECTILE){
+        if (type != GameObjectType.ENEMYPROJECTILE) {
             return true;
         }
 

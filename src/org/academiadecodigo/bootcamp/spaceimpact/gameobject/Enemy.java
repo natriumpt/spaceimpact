@@ -9,6 +9,7 @@ public class Enemy extends Ship {
     private int currentPattern;
     private int[] stepsSmoothing = new int[2];
     private boolean destroyed;
+    private int enemyProjectileCount = 0;
 
     public Enemy(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
@@ -40,7 +41,8 @@ public class Enemy extends Ship {
 
     @Override
     public void fire() {
-        projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, 1, 30);
+            projectileFactory.createProjectile(GameObjectType.ENEMYPROJECTILE, getX(), getY(), 16, 4, 1, 30);
+            enemyProjectileCount++;
 
     }
 
@@ -83,6 +85,7 @@ public class Enemy extends Ship {
         switch (currentPattern) {
 
             case 0:
+                fire();
                 targetPosition.setX(600);
                 targetPosition.setY(240);
                 System.out.println("Did case 0 ");
@@ -90,6 +93,7 @@ public class Enemy extends Ship {
                 break;
 
             case 1:
+                fire();
                 targetPosition.setX(360);
                 targetPosition.setY(50);
                 System.out.println("Did case 1 ");
@@ -97,12 +101,14 @@ public class Enemy extends Ship {
                 break;
 
             case 2:
+                fire();
                 targetPosition.setX(50);
                 targetPosition.setY(240);
                 currentPattern++;
                 System.out.println("Did case 2 ");
                 break;
             case 3:
+                fire();
                 targetPosition.setX(360);
                 targetPosition.setY(400);
                 currentPattern++;
