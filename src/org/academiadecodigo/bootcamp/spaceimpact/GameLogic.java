@@ -16,6 +16,7 @@ public class GameLogic {
     private Player player;
 
 
+
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
         this.gameObjectFactory = gameObjectFactory;
         this.projectileFactory = projectileFactory;
@@ -27,6 +28,7 @@ public class GameLogic {
     /*
      * Start game method
      */
+
 
 
     public void start() throws InterruptedException {
@@ -71,20 +73,20 @@ public class GameLogic {
         }
     }
 
-    public void createEnemies() {
+    public void createEnemies(){
         for (int i = 0; i < ENEMY_LIMIT; i++) {
 
             if (enemies[i] == null) {
                 System.out.println("Enemies[i] is null");
 
-                int minX = field.getW() / 2;
-                int posX = minX + (int) (Math.random() * ((field.getW() - minX) + 1));
+                int minX = field.getW()/2;
+                int posX = minX + (int)(Math.random() * ((field.getW() - minX) + 1));
                 int posY = (int) (Math.random() * ((field.getH() + 1)));
 
                 if (player.getX() != posX && player.getY() != posY) {
 
                     for (int j = 0; j < ENEMY_LIMIT; j++) {
-                        if (enemies[j] != null) {
+                        if(enemies[j] != null) {
                             if (enemies[j].getX() != posX && enemies[j].getY() != posY) {
 
                                 enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
@@ -93,13 +95,14 @@ public class GameLogic {
                         }
                     }
 
-                    if (enemies[i] == null) {
+                    if(enemies[i] == null) {
                         enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
                         break;
                     }
                 }
             }
         }
+
 
     }
 
@@ -108,23 +111,29 @@ public class GameLogic {
      */
     private void playerLogic(Field field, Player player) {
 
-        player.decreaseFireBuffer();
-        player.decreaseRespawnTimer();
-        controllable.controlCycle(field);
+        if (!player.isDestroyed()) {
 
+            player.decreaseFireBuffer();
+            player.decreaseRespawnTimer();
+            controllable.controlCycle(field);
 
-        player.destroy();
-        player.decreaseLives();
-        player.respawn(); // Still has no code
+            if (player.getHitPoints() <= 0) {
 
-        if (player.getLives() <= 0) {
+                player.destroy();
+                player.decreaseLives();
+                player.respawn(); // Still has no code
 
-            // show player/score
-            // setScore in the shistory.txt file
-            //gameover();
+                if (player.getLives() <= 0) {
+
+                    // show player/score
+                    // setScore in the shistory.txt file
+                    //gameover();
+                }
+
+            }
+
         }
 
-        //gameover();
     }
 
 
@@ -132,23 +141,19 @@ public class GameLogic {
      * Enemy logic
      */
     private void enemyLogic(Enemy[] enemies) {
-
         for (Enemy enemy : enemies) {
 
 
             if (enemy != null) {
-
                 if (!enemy.isDestroyed()) {
                     // TODO: Enemy behaviour
-
                     ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation();
                     enemy.updatePattern(enemy);
-                    System.out.println(enemy);
-
 
                     if (enemy.getHitPoints() <= 0) {
 
                         enemy.destroy();
+
                     }
                 }
             }
@@ -183,6 +188,8 @@ public class GameLogic {
             }
         }
     }
+
+
 
 
 }
