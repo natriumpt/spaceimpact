@@ -11,6 +11,7 @@ public class GameLogic {
     private GameObjectFactory gameObjectFactory;
     private ProjectileFactory projectileFactory;
     private Controllable controllable;
+    private boolean running;
 
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
         this.gameObjectFactory = gameObjectFactory;
@@ -22,6 +23,8 @@ public class GameLogic {
      */
 
     public void start() throws InterruptedException {
+
+
 
         /*
          * The default objects are instanced;
@@ -42,9 +45,10 @@ public class GameLogic {
 
         if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
             this.controllable = new SimpleGfxKeyboard(player);
+            running = controllable.isRunning();
         }
 
-        while (true) {
+        while (controllable.isRunning()) {
 
             fieldLogic(field, player);
             playerLogic(field, player);
@@ -54,6 +58,8 @@ public class GameLogic {
             Thread.sleep(33);
 
         }
+
+        System.exit(0);
 
     }
 

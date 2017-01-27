@@ -17,9 +17,11 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
     private boolean left;
     private boolean right;
     private boolean firing;
+    private boolean running;
 
     public SimpleGfxKeyboard(Player player) {
         this.player = player;
+        this.running = true;
         initializeKeyboard();
     }
 
@@ -76,6 +78,15 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
         releaseFire.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
         k.addEventListener(releaseFire);
 
+        KeyboardEvent quit = new KeyboardEvent();
+        quit.setKey(KeyboardEvent.KEY_P);
+        quit.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        k.addEventListener(quit);
+
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 
     public void controlCycle(Field field) {
@@ -85,6 +96,7 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
         if (right && player.getX() < field.getW() - player.getW()) player.move(player.getSpeed(),0);
         if (firing) player.fire();
     }
+
 
 /*
     public void controlCycle() {
@@ -122,6 +134,11 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
             case KeyboardEvent.KEY_SPACE:
                 firing = true;
                 System.out.println("Pressed Space");
+                break;
+
+            case KeyboardEvent.KEY_P:
+                running = false;
+                System.out.println("Pressed P to running");
                 break;
         }
     }

@@ -6,4 +6,7 @@ public interface Controllable {
 
     void controlCycle(Field field);
 
+    boolean isRunning();
+
+
 }
