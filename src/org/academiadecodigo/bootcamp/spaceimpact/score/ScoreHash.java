@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.spaceimpact;
+package org.academiadecodigo.bootcamp.spaceimpact.score;
 
 import java.util.HashMap;
 import java.util.Iterator;

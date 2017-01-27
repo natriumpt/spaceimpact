@@ -125,7 +125,8 @@ public class GameLogic {
 
                 if (player.getLives() <= 0) {
 
-                    //need to call setScore
+                    // show player/score
+                    // setScore in the shistory.txt file
                     //gameover();
                 }
 

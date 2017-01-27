@@ -6,8 +6,6 @@ import java.io.*;
 
 public class Score {
 
-    //TODO: Assigned to Branco
-
     Player player;
 
     public Score(Player player){
@@ -28,6 +26,7 @@ public class Score {
         outputStream.close();
     }
 
+    /*
     public int checkScore(Player p) throws IOException {
         FileInputStream inputStream = new FileInputStream("shistory.txt");
 
@@ -43,7 +42,7 @@ public class Score {
             index ++;
         }
 
-        index = 0;
+        //index = 0;
         temp = null;
         playerName = temp.toString();
 
@@ -54,6 +53,7 @@ public class Score {
         }
         return score;
     }
+    */
 
 
 }
