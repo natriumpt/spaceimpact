@@ -23,6 +23,10 @@ public class ProjectileFactory extends GameObjectFactory {
                 projectile = new Projectile((Representable) representableFactory.createRepresentation(type, x, y), x, y, w, h, friendly, damage, speed);
                 addToProjectileArray((Projectile) projectile);
                 break;
+            case ENEMYPROJECTILE:
+                projectile = new Projectile((Representable) representableFactory.createRepresentation(type,x,y),x,y,w,h,friendly,damage,speed);
+                addToProjectileArray((Projectile) projectile);
+                break;
         }
 
         return projectile;

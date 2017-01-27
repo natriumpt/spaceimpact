@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.spaceimpact.simplegfx;
 
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.GameObjectType;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.io.IOException;
@@ -10,17 +11,35 @@ public class SimpleGfxProjectile extends SimpleGfxMovableRepresentable {
     private int frameSkip;
     private Picture[] animation;
 
-    public SimpleGfxProjectile(int x, int y) {
+    public SimpleGfxProjectile(GameObjectType type, int x, int y) {
         try {
             new SimpleGfxSound("/sound/fire.wav");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.animation = new Picture[4];
-        for (int i = 0; i < animation.length; i++) {
-            animation[i] = new Picture(x, y, "/projectile/playershot" + i + ".png");
+
+        switch (type) {
+
+            case PROJECTILE:
+                this.animation = new Picture[4];
+                for (int i = 0; i < animation.length; i++) {
+                    animation[i] = new Picture(x, y, "/projectile/playershot" + i + ".png");
+                }
+                break;
+
+            case ENEMYPROJECTILE:
+                this.animation = new Picture[4];
+                for (int i = 0; i < animation.length; i++) {
+                    animation[i] = new Picture(x, y, "/projectile/enemyshot" + i + ".png");
+                }
+                break;
+
         }
     }
+
+
+
+
 
     @Override
     public void move(int dx, int dy) {
