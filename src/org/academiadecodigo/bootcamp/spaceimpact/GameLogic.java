@@ -90,7 +90,7 @@ public class GameLogic {
 
                 if (player.getLives() <= 0){
 
-                    //Score. setScore
+                    //need to call setScore
                     //gameover();
                 }
 

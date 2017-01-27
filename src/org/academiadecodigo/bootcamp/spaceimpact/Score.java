@@ -16,52 +16,43 @@ public class Score {
 
 
     public void setScore(Player player) throws IOException {
+
         /*Streams (InputStream and OutputStream) transfer binary data. If you want to write a string to a stream, you must first convert it to bytes, or in other words encode it. You can do that manually (as you suggest) using the String.getBytes(Charset) method, but you should avoid the String.getBytes() method, because that uses the default encoding of the JVM, which can't be reliably predicted in a portable way.
         The usual way to write character data to a stream, though, is to wrap the stream in a Writer, (often a PrintWriter), that does the conversion for you when you call its write(String) (or print(String)) method. The corresponding wrapper for InputStreams is a Reader.
         PrintStream is a special OutputStream implementation
         */
+
         PrintStream outputStream = new PrintStream("shistory.txt");
-        outputStream.print(player.getPlayerName());
-        //outputStream.prin(player.getScore());
+        outputStream.print(player.getPlayerName() + " ");
+        outputStream.print(player.getScore() + '\n');
         outputStream.close();
-        //while ((c = ))
     }
 
-    public void checkHighscore(int score) throws IOException {
-        try{
-            FileInputStream inputStream = new FileInputStream("shistory.txt");
+    public int checkScore(Player p) throws IOException {
+        FileInputStream inputStream = new FileInputStream("shistory.txt");
 
+        int c;
+        int index = 0;
+        char temp [] = new char[40];
+        int score = 0;
+        String playerName = "";
 
-            byte[] buffer = new byte[1024]; //nova linha
-            int line = inputStream.read(buffer);
-
-
-            //inputStream.
-
-        } catch (IOException e){
-            e.printStackTrace();
+        while ((c = inputStream.read()) != ' ') {
+            if (c >= 65 && c <= 123 )
+                temp[index] = (char) c;
+            index ++;
         }
 
-         // hashmap key value
+        index = 0;
+        temp = null;
+        playerName = temp.toString();
 
-        /*
-         while (line != '\0'){
-
-
-         }
-
-         inputStream.close();
-         */
-
-    }
-
-    public void readHighScore(){
-
-    }
-
-
-    public void setHighScore(){
-
+        while ((c = inputStream.read()) != '\n') {
+            if (c >= 65 && c <= 123 )
+                score  = (score * 10) + c;
+            index ++;
+        }
+        return score;
     }
 
 
