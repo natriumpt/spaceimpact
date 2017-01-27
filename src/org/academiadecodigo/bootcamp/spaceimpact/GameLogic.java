@@ -73,14 +73,14 @@ public class GameLogic {
         if(!player.isDestroyed()) {
 
             player.decreaseFireBuffer();
+            player.decreaseRespawnTimer();
             controllable.controlCycle(field);
 
             if (player.getHitPoints() <= 0) {
 
                 player.destroy();
                 player.decreaseLives();
-                //player.removeControl
-                //player.respawn
+                player.respawn(); // Still has no code
 
                 if (player.getLives() <= 0){
 

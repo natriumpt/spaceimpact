@@ -1,15 +1,18 @@
 package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
 
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.MovableRepresentable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 
 public class Player extends Ship {
 
     private ProjectileFactory projectileFactory;
     private int fireBuffer;
+    private int respawnTimer;
     private int lives;
     private int score;
     private String playerName;
     private boolean destroyed;
+    private boolean control = true;
 
     public Player(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
@@ -55,6 +58,27 @@ public class Player extends Ship {
         if (fireBuffer > 0) fireBuffer--;
     }
 
+    public void decreaseRespawnTimer(){
+        if (respawnTimer > 0) {
+            respawnTimer--;
+        }
+    }
+
+    public void setControl(boolean control) {
+        this.control = control;
+    }
+
+    public boolean hasControl() {
+        return respawnTimer == 0;
+    }
+
+    public void respawn() {
+        respawnTimer = 66;
+        moveTo(720 / 4, 480 / 2);
+        ((MovableRepresentable) getRepresentation()).respawn();
+        setHitPoints(3);
+    }
+
     @Override
     public void fire() {
         if (fireBuffer == 0) {
@@ -71,6 +95,12 @@ public class Player extends Ship {
 
     public boolean isDestroyed() {
         return destroyed;
+    }
+
+    public void moveTo(int x, int y) {
+
+        move(x - getX(), y - getY());
+
     }
 
     @Override

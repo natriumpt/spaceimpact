@@ -79,11 +79,13 @@ public class SimpleGfxKeyboard implements KeyboardHandler, Controllable {
     }
 
     public void controlCycle(Field field) {
-        if (up && player.getY() > player.getH() * 2) player.move(0,-player.getSpeed());
-        if (down && player.getY() < field.getH() - player.getH() * 1.5) player.move(0,player.getSpeed());
-        if (left && player.getX() > player.getW()) player.move(-player.getSpeed(),0);
-        if (right && player.getX() < field.getW() - player.getW()) player.move(player.getSpeed(),0);
-        if (firing) player.fire();
+        if(player.hasControl()) {
+            if (up && player.getY() > player.getH() * 2) player.move(0, -player.getSpeed());
+            if (down && player.getY() < field.getH() - player.getH() * 1.5) player.move(0, player.getSpeed());
+            if (left && player.getX() > player.getW()) player.move(-player.getSpeed(), 0);
+            if (right && player.getX() < field.getW() - player.getW()) player.move(player.getSpeed(), 0);
+            if (firing) player.fire();
+        }
     }
 
 /*
