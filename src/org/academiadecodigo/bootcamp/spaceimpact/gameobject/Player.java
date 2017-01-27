@@ -1,4 +1,5 @@
 package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
+
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 
 public class Player extends Ship {
@@ -8,6 +9,7 @@ public class Player extends Ship {
     private int lives;
     private int score;
     private String playerName;
+    private boolean destroyed;
 
     public Player(Representable representation, int x, int y, int w, int h, ProjectileFactory projectileFactory) {
         super(representation, x, y, w, h);
@@ -25,11 +27,11 @@ public class Player extends Ship {
         return playerName;
     }
 
-    public void increaseScore(){
+    public void increaseScore() {
         score++;
     }
 
-    public int getScore(){
+    public int getScore() {
         return score;
     }
 
@@ -64,6 +66,11 @@ public class Player extends Ship {
     @Override
     public void destroy() {
         super.destroy();
+        this.destroyed = true;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
     }
 
     @Override
