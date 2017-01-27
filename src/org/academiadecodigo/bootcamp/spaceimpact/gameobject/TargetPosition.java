@@ -9,9 +9,9 @@ public class TargetPosition {
     private int y;
 
 
-    public TargetPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public TargetPosition() {
+        this.x = (int)(Math.random()*720);
+        this.y = (int)(Math.random()*480);
     }
 
     public int getX() {
