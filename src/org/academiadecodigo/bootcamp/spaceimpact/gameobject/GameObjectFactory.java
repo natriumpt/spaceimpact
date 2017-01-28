@@ -24,6 +24,9 @@ public class GameObjectFactory {
             case FIELD:
                 gameObject = new Field((Representable) representableFactory.createRepresentation(type, x, y));
                 break;
+            case POWERUP:
+                gameObject = new Field((Representable) representableFactory.createRepresentation(type,x,y));
+                break;
         }
 
         return gameObject;

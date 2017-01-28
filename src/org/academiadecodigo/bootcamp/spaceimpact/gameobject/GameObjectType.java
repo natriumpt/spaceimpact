@@ -5,5 +5,6 @@ public enum GameObjectType {
     ENEMY,
     FIELD,
     PROJECTILE,
-    ENEMYPROJECTILE
+    ENEMYPROJECTILE,
+    POWERUP
 }
