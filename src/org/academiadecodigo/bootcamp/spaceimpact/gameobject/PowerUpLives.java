@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
 
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.MovableRepresentable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 
 /**
@@ -11,7 +12,7 @@ public class PowerUpLives extends PowerUp {
     private boolean destroyed;
 
 
-    public PowerUpLives(Representable representation, int x, int y, int w, int h, Player player){
+    public PowerUpLives(MovableRepresentable representation, int x, int y, int w, int h, Player player){
         super(representation, x,y,w,h);
         this.player = player;
         setX(x);
