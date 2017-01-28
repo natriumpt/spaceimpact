@@ -2,6 +2,7 @@ package org.academiadecodigo.bootcamp.spaceimpact;
 
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Controllable;
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.*;
 
 public class GameLogic {
@@ -14,6 +15,8 @@ public class GameLogic {
     private Enemy[] enemies;
     private Field field;
     private Player player;
+    private Representable score;
+    private Representable lives;
     private int enemieRespawnTimer = 0;
 
 
@@ -45,10 +48,13 @@ public class GameLogic {
 
         if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
             this.controllable = new SimpleGfxKeyboard(player);
+            this.lives = new SimpleGfxLives(player);
+            this.score = new SimpleGfxScore(player);
         }
 
         while (controllable.isRunning()) {
 
+            screenLabels();
             createEnemies();
             fieldLogic(field, player);
             playerLogic(field, player);
@@ -123,6 +129,7 @@ public class GameLogic {
             player.decreaseRespawnTimer();
             controllable.controlCycle(field);
 
+
             if (player.getHitPoints() <= 0) {
 
                 player.destroy();
@@ -193,6 +200,17 @@ public class GameLogic {
                 }
             }
         }
+    }
+
+    public void screenLabels(){ //to represent the labels of the score and lives
+
+        if(gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory){
+            ((SimpleGfxScore) score).score();
+            ((SimpleGfxLives) lives).lives();
+            ((SimpleGfxLives) lives).getHearts();
+        }
+
+
     }
 
 
