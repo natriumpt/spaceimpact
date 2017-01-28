@@ -14,7 +14,7 @@ public class GameLogic {
     private Enemy[] enemies;
     private Field field;
     private Player player;
-
+    private int enemieRespawnTimer = 0;
 
 
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
@@ -30,7 +30,6 @@ public class GameLogic {
      */
 
 
-
     public void start() throws InterruptedException {
 
         /*
@@ -39,7 +38,6 @@ public class GameLogic {
 
         Projectile[] projectiles = new Projectile[PROJECTILE_LIMIT];
         projectileFactory.setProjectileArray(projectiles);
-
         /*
          * The line below checks for SimpleGfx and instances it's KeyboardHandler class.
          * It needs to be changed if another library is implemented.
@@ -73,40 +71,44 @@ public class GameLogic {
         }
     }
 
-    public void createEnemies(){
-        for (int i = 0; i < ENEMY_LIMIT; i++) {
+    public void createEnemies() {
 
-            if (enemies[i] == null || enemies[i].isDestroyed()) {
+        if (enemieRespawnTimer == 0) {
 
-                int minX = field.getW()/2;
-                int posX = randomPosition(minX,field.getX());
-                int posY = randomPosition(0,field.getH());
+            for (int i = 0; i < ENEMY_LIMIT; i++) {
 
-                if (player.getX() != posX && player.getY() != posY) {
+                if (enemies[i] == null || enemies[i].isDestroyed()) {
 
-                    for (int j = 0; j < ENEMY_LIMIT; j++) {
-                        if(enemies[j] != null && !enemies[j].isDestroyed()) {
-                            if (enemies[j].getX() != posX && enemies[j].getY() != posY) {
+                    int minX = field.getW() / 2;
+                    int posX = randomPosition(minX, field.getW() - 20); //to avoid enemies spawn outside of the field
+                    int posY = randomPosition(20, field.getH() - 40);   //to avoid enemies spawn outside of the field
 
-                                enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
-                                break;
+                    if (player.getX() != posX && player.getY() != posY) {
+
+                        for (int j = 0; j < ENEMY_LIMIT; j++) {
+                            if (enemies[j] != null && !enemies[j].isDestroyed()) {
+                                if (enemies[j].getX() != posX && enemies[j].getY() != posY) {
+
+                                    enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
+                                    return;
+                                }
                             }
                         }
-                    }
 
-                    if(enemies[i] == null || enemies[i].isDestroyed()) {
-                        enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
-                        break;
+                        if (enemies[i] == null || enemies[i].isDestroyed()) {
+                            enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
+                            return;
+                        }
                     }
                 }
             }
+            enemieRespawnTimer = 100;
         }
-
-
+        enemieRespawnTimer--;
     }
 
-    public int randomPosition(int min, int max){
-        return min + (int)(Math.random() * ((max - min) + 1));
+    public int randomPosition(int min, int max) {
+        return min + (int) (Math.random() * ((max - min) + 1));
 
     }
 
@@ -192,8 +194,6 @@ public class GameLogic {
             }
         }
     }
-
-
 
 
 }
