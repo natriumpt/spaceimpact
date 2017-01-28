@@ -9,10 +9,12 @@ public class GameLogic {
 
     private static final int PROJECTILE_LIMIT = 100;
     private static final int ENEMY_LIMIT = 3;
+    private static final int POWERUP_LIMIT = 2;
     private GameObjectFactory gameObjectFactory;
     private ProjectileFactory projectileFactory;
     private Controllable controllable;
     private Enemy[] enemies;
+    private PowerUp[] powerUps;
     private Field field;
     private Player player;
     private Representable score;
@@ -24,6 +26,7 @@ public class GameLogic {
         this.gameObjectFactory = gameObjectFactory;
         this.projectileFactory = projectileFactory;
         enemies = new Enemy[ENEMY_LIMIT];
+        powerUps = new PowerUp[POWERUP_LIMIT];
         field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD, 0, 0);
         player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getW() / 4, field.getH() / 2, 34, 15, projectileFactory);
     }
@@ -55,10 +58,12 @@ public class GameLogic {
         while (controllable.isRunning()) {
 
             screenLabels();
+            createPowerUps();
             createEnemies();
             fieldLogic(field, player);
             playerLogic(field, player);
             enemyLogic(enemies);
+            powerUpLogic(powerUps,player);
             projectileLogic(field, player, enemies, projectiles);
 
             Thread.sleep(33);
@@ -113,6 +118,39 @@ public class GameLogic {
         enemieRespawnTimer--;
     }
 
+    public void createPowerUps(){
+
+        for (int i = 0; i < POWERUP_LIMIT; i++) {
+
+            if (powerUps[i] == null || powerUps[i].isDestroyed()) {
+
+                int minX = field.getW() / 2;
+                int posX = randomPosition(minX, field.getW() - 20);
+                int posY = randomPosition(20, field.getH() - 40);
+
+                if (player.getX() != posX && player.getY() != posY) {
+
+                    for (int j = 0; j < POWERUP_LIMIT; j++) {
+                        if (powerUps[j] != null && !powerUps[j].isDestroyed()) {
+                            if (powerUps[j].getX() != posX && powerUps[j].getY() != posY) {
+                                powerUps[i] = (PowerUp) gameObjectFactory.createPowerUp(GameObjectType.POWERUP, posX, posY, 47, 53, player);
+                                return;
+                            }
+                        }
+                    }
+
+                    if (powerUps[i] == null || powerUps[i].isDestroyed()) {
+                        powerUps[i] = (PowerUp) gameObjectFactory.createPowerUp(GameObjectType.POWERUP, posX, posY, 47, 53, player);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
     public int randomPosition(int min, int max) {
         return min + (int) (Math.random() * ((max - min) + 1));
 
@@ -160,7 +198,7 @@ public class GameLogic {
             if (enemy != null) {
                 if (!enemy.isDestroyed()) {
                     // TODO: Enemy behaviour
-                    ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation();
+                    ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation(); // TODO: instance of SimpleGfx needed
                     enemy.updatePattern(enemy);
 
                     if (enemy.getHitPoints() <= 0) {
@@ -213,5 +251,27 @@ public class GameLogic {
 
     }
 
+
+    /* Power Up
+     *
+     */
+
+    private void powerUpLogic(PowerUp []powerUps, Player player){
+        for (PowerUp powerUp : powerUps) {
+
+            if (powerUp != null) {
+                if (!powerUp.isDestroyed()) {
+                    ((SimpleGfxPowerUp) powerUp.getRepresentation()).playAnimation();
+                    //usar update pattern do enemy do tiago?
+
+                    if (player.comparePos(powerUp)) {
+                        powerUp.destroy();
+                    }
+                }
+            }
+
+            }
+
+        }
 
 }

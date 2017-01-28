@@ -28,7 +28,9 @@ public class SimpleGfxRepresentableFactory implements RepresentableFactory {
             case ENEMYPROJECTILE:
                 representation = new SimpleGfxProjectile(GameObjectType.ENEMYPROJECTILE,x,y);
                 break;
-
+            case POWERUP:
+                representation = new SimpleGfxPowerUp(x,y);
+                break;
         }
 
         return representation;

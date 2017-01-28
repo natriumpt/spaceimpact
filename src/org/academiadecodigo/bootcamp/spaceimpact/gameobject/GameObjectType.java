@@ -8,4 +8,5 @@ public enum GameObjectType {
     FIELD,
     PROJECTILE,
     ENEMYPROJECTILE,
+    POWERUP
 }
