@@ -179,7 +179,7 @@ public class GameLogic {
 
                     // show player/score
                     // setScore in the shistory.txt file
-                    gameOver();
+                    //gameOver();
                 }
 
             }
