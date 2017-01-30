@@ -18,9 +18,9 @@ public class Pattern {
 
         stepsCalc(enemy);
 
-        System.out.println(targetPosition.getX() + " "+ targetPosition.getY());
+        //System.out.println(targetPosition.getX() + " "+ targetPosition.getY());
 
-        System.out.println(inTargetPosition(enemy));
+        //System.out.println(inTargetPosition(enemy));
 
 
         if (!enemy.comparePos(targetPosition)) {
@@ -34,7 +34,7 @@ public class Pattern {
                 enemy.fire();
                 targetPosition.setX((int)(Math.random()*720));
                 targetPosition.setY((int)(Math.random()*480));
-                System.out.println("Calculated a new position");
+                //System.out.println("Calculated a new position");
 
 
     }
