@@ -3,6 +3,7 @@ package org.academiadecodigo.bootcamp.spaceimpact;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Controllable;
 import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.*;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class GameLogic {
 
@@ -171,7 +172,7 @@ public class GameLogic {
 
                     // show player/score
                     // setScore in the shistory.txt file
-                    //gameover();
+                    gameOver();
                 }
 
             }
@@ -179,6 +180,7 @@ public class GameLogic {
         }
 
     }
+
 
 
     /*
@@ -255,5 +257,22 @@ public class GameLogic {
             }
 
         }
+
+    /*
+     * Init
+     */
+
+    public void init() throws InterruptedException {
+        SimpleGfxInit init = new SimpleGfxInit(0,0);
+        init.playAnimationDraw();
+        Thread.sleep(2000);
+        init.playAnimationDelete();
+    }
+
+
+
+
+
+
 
 }

@@ -2,6 +2,7 @@ package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
 
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.MovableRepresentable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player extends Ship {
 
@@ -64,8 +65,10 @@ public class Player extends Ship {
         }
     }
 
-    public void setControl(boolean control) {
-        this.control = control;
+    private void gameOver() {
+
+        //Picture picture = new Picture()
+
     }
 
     public boolean hasControl() {
