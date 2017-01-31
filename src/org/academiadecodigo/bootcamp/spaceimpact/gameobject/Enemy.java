@@ -21,9 +21,7 @@ public class Enemy extends Ship {
     public void enemyMove(int x, int y) {
         // TODO: Change this to ensure more realistic diagonal movement
         if (getX() != x || getY() != y) {
-            System.out.println("Position is different");
             if (getX() > x) {
-                System.out.println("Position greater than target");
                 move(-getSpeed(), 0);
             }
             if (getX() < x) {
