@@ -14,7 +14,6 @@ public class Main {
 
         GameLogic g = new GameLogic(new GameObjectFactory(representableFactory), new ProjectileFactory(representableFactory));
         g.init();
-        g.start();
 
     }
 }

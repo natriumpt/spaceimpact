@@ -1,10 +1,11 @@
 package org.academiadecodigo.bootcamp.spaceimpact;
 
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.*;
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.init.SplashScreen;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Controllable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.*;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.init.SimpleGfxSplash;
 
 public class GameLogic {
 
@@ -20,7 +21,7 @@ public class GameLogic {
     private Player player;
     private Representable score;
     private Representable lives;
-    private int enemieRespawnTimer = 0;
+    private int enemyRespawnTimer = 0;
     private int powerupRespawnTimer = 0;
 
 
@@ -31,6 +32,18 @@ public class GameLogic {
         powerUps = new PowerUp[POWERUP_LIMIT];
         field = (Field) gameObjectFactory.createObject(GameObjectType.FIELD, 0, 0);
         player = (Player) gameObjectFactory.createObject(GameObjectType.PLAYER, field.getW() / 4, field.getH() / 2, 34, 15, projectileFactory);
+    }
+
+    /*
+     * Init
+     */
+
+    public void init() throws InterruptedException {
+        SplashScreen splashScreen = (SplashScreen) gameObjectFactory.createObject(GameObjectType.SPLASHSCREEN, 0,0);
+        while(!((SimpleGfxSplash)splashScreen.getRepresentation()).isStarted()) {
+            Thread.sleep(100);
+        }
+        start();
     }
 
     /*
@@ -76,50 +89,6 @@ public class GameLogic {
 
     }
 
-    private void fieldLogic(Field field, Player player) {
-        if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
-            ((SimpleGfxField) field.getRepresentation()).playAnimation();
-            ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().delete();
-            ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().draw();
-        }
-    }
-
-    public void createEnemies() {
-
-        if (enemieRespawnTimer == 0) {
-
-            for (int i = 0; i < ENEMY_LIMIT; i++) {
-
-                if (enemies[i] == null || enemies[i].isDestroyed()) {
-
-                    int minX = field.getW() / 2;
-                    int posX = randomPosition(minX, field.getW() - 20); //to avoid enemies spawn outside of the field
-                    int posY = randomPosition(20, field.getH() - 40);   //to avoid enemies spawn outside of the field
-
-                    if (player.getX() != posX && player.getY() != posY) {
-
-                        for (int j = 0; j < ENEMY_LIMIT; j++) {
-                            if (enemies[j] != null && !enemies[j].isDestroyed()) {
-                                if (enemies[j].getX() != posX && enemies[j].getY() != posY) {
-
-                                    enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
-                                    return;
-                                }
-                            }
-                        }
-
-                        if (enemies[i] == null || enemies[i].isDestroyed()) {
-                            enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
-                            return;
-                        }
-                    }
-                }
-            }
-            enemieRespawnTimer = 100;
-        }
-        enemieRespawnTimer--;
-    }
-
     public void createPowerUps() {
 
         if (powerupRespawnTimer == 0) {
@@ -155,10 +124,48 @@ public class GameLogic {
         powerupRespawnTimer--;
     }
 
+    public void createEnemies() {
 
-    public int randomPosition(int min, int max) {
-        return min + (int) (Math.random() * ((max - min) + 1));
+        if (enemyRespawnTimer == 0) {
 
+            for (int i = 0; i < ENEMY_LIMIT; i++) {
+
+                if (enemies[i] == null || enemies[i].isDestroyed()) {
+
+                    int minX = field.getW() / 2;
+                    int posX = randomPosition(minX, field.getW() - 20); //to avoid enemies spawn outside of the field
+                    int posY = randomPosition(20, field.getH() - 40);   //to avoid enemies spawn outside of the field
+
+                    if (player.getX() != posX && player.getY() != posY) {
+
+                        for (int j = 0; j < ENEMY_LIMIT; j++) {
+                            if (enemies[j] != null && !enemies[j].isDestroyed()) {
+                                if (enemies[j].getX() != posX && enemies[j].getY() != posY) {
+
+                                    enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
+                                    return;
+                                }
+                            }
+                        }
+
+                        if (enemies[i] == null || enemies[i].isDestroyed()) {
+                            enemies[i] = (Enemy) gameObjectFactory.createObject(GameObjectType.ENEMY, posX, posY, 47, 53, projectileFactory);
+                            return;
+                        }
+                    }
+                }
+            }
+            enemyRespawnTimer = 100;
+        }
+        enemyRespawnTimer--;
+    }
+
+    private void fieldLogic(Field field, Player player) {
+        if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
+            ((SimpleGfxField) field.getRepresentation()).playAnimation();
+            ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().delete();
+            ((SimpleGfxRepresentable) player.getRepresentation()).getPicture().draw();
+        }
     }
 
     /*
@@ -188,12 +195,11 @@ public class GameLogic {
 
             // show player/score
             // setScore in the shistory.txt file
-            //gameOver();
+            // gameOver();
 
         }
 
     }
-
 
     /*
      * Enemy logic
@@ -211,7 +217,7 @@ public class GameLogic {
 
                     if (player.comparePos(enemy)) {
                         player.destroy();
-                        if(player.getLives()>0) {
+                        if (player.getLives() > 0) {
                             player.decreaseLives();
                             player.respawn();
                         }
@@ -226,8 +232,29 @@ public class GameLogic {
                     }
                 }
             }
+        }
+    }
+
+    /*
+     * Power-ups
+     */
+
+    private void powerUpLogic(PowerUp[] powerUps, Player player) {
+        for (PowerUp powerUp : powerUps) {
+
+            if (powerUp != null) {
+                if (!powerUp.isDestroyed()) {
+                    ((SimpleGfxPowerUp) powerUp.getRepresentation()).playAnimation();
+                    //usar update pattern do enemy do tiago?
+                    if (player.comparePos(powerUp)) {
+                        powerUp.destroy();
+                        player.increaseLives();
+                    }
+                }
+            }
 
         }
+
     }
 
     /*
@@ -262,6 +289,11 @@ public class GameLogic {
 
     }
 
+    public int randomPosition(int min, int max) {
+        return min + (int) (Math.random() * ((max - min) + 1));
+
+    }
+
     public void screenLabels() { //to represent the labels of the score and lives
 
         if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
@@ -272,40 +304,5 @@ public class GameLogic {
 
 
     }
-
-
-    /* Power Up
-     *
-     */
-
-    private void powerUpLogic(PowerUp[] powerUps, Player player) {
-        for (PowerUp powerUp : powerUps) {
-
-            if (powerUp != null) {
-                if (!powerUp.isDestroyed()) {
-                    ((SimpleGfxPowerUp) powerUp.getRepresentation()).playAnimation();
-                    //usar update pattern do enemy do tiago?
-                    if (player.comparePos(powerUp)) {
-                        powerUp.destroy();
-                        player.increaseLives();
-                    }
-                }
-            }
-
-        }
-
-    }
-
-    /*
-     * Init
-     */
-
-    public void init() throws InterruptedException {
-        SimpleGfxInit init = new SimpleGfxInit(0, 0);
-        init.playAnimationDraw();
-        Thread.sleep(2000);
-        init.playAnimationDelete();
-    }
-
 
 }

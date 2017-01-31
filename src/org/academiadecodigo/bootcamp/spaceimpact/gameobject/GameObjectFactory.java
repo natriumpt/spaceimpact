@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp.spaceimpact.gameobject;
 
+import org.academiadecodigo.bootcamp.spaceimpact.gameobject.init.SplashScreen;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.MovableRepresentable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.RepresentableFactory;
@@ -24,7 +25,9 @@ public class GameObjectFactory {
             case FIELD:
                 gameObject = new Field((Representable) representableFactory.createRepresentation(type, x, y));
                 break;
-
+            case SPLASHSCREEN:
+                gameObject = new SplashScreen((Representable) representableFactory.createRepresentation(type, x, y));
+                break;
         }
 
         return gameObject;

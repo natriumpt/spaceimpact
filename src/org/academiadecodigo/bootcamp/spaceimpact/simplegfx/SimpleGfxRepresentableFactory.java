@@ -3,6 +3,7 @@ package org.academiadecodigo.bootcamp.spaceimpact.simplegfx;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.GameObjectType;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.Representable;
 import org.academiadecodigo.bootcamp.spaceimpact.gameobject.representable.RepresentableFactory;
+import org.academiadecodigo.bootcamp.spaceimpact.simplegfx.init.SimpleGfxSplash;
 
 public class SimpleGfxRepresentableFactory implements RepresentableFactory {
 
@@ -31,6 +32,8 @@ public class SimpleGfxRepresentableFactory implements RepresentableFactory {
             case POWERUP:
                 representation = new SimpleGfxPowerUp(x,y);
                 break;
+            case SPLASHSCREEN:
+                representation = new SimpleGfxSplash(x,y);
         }
 
         return representation;
