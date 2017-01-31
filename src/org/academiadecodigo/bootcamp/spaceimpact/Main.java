@@ -13,7 +13,6 @@ public class Main {
         RepresentableFactory representableFactory = new SimpleGfxRepresentableFactory();
 
         GameLogic g = new GameLogic(new GameObjectFactory(representableFactory), new ProjectileFactory(representableFactory));
-        g.init();
         g.start();
 
     }
