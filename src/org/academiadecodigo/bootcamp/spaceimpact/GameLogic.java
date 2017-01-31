@@ -318,6 +318,7 @@ public class GameLogic {
         SimpleGfxGameOver simpleGfxGameOver = new SimpleGfxGameOver(10, 10);
         simpleGfxGameOver.playAnimationDraw();
         Thread.sleep(3000);
+        System.out.println('\n' + "Player score: " + player.getScore());
         System.exit(0);
     }
 
