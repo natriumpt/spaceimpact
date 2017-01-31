@@ -64,7 +64,7 @@ public class GameLogic {
             fieldLogic(field, player);
             playerLogic(field, player);
             enemyLogic(enemies);
-            powerUpLogic(powerUps,player);
+            powerUpLogic(powerUps, player);
             projectileLogic(field, player, enemies, projectiles);
 
             Thread.sleep(33);
@@ -119,7 +119,7 @@ public class GameLogic {
         enemieRespawnTimer--;
     }
 
-    public void createPowerUps(){
+    public void createPowerUps() {
 
         for (int i = 0; i < POWERUP_LIMIT; i++) {
 
@@ -148,8 +148,6 @@ public class GameLogic {
             }
         }
     }
-
-
 
 
     public int randomPosition(int min, int max) {
@@ -189,16 +187,16 @@ public class GameLogic {
     }
 
 
-
     /*
      * Enemy logic
      */
     private void enemyLogic(Enemy[] enemies) {
         for (Enemy enemy : enemies) {
 
-
             if (enemy != null) {
                 if (!enemy.isDestroyed()) {
+
+
                     // TODO: Enemy behaviour
                     ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation(); // TODO: instance of SimpleGfx needed
                     enemy.updatePattern(enemy);
@@ -210,6 +208,7 @@ public class GameLogic {
                     }
                 }
             }
+
         }
     }
 
@@ -233,18 +232,21 @@ public class GameLogic {
                                 projectile.destroy();
                             }
                         }
+
                     }
-                    if (projectile.outOfBounds(field)) {
-                        projectile.destroy();
-                    }
+
+                }
+                if (projectile.outOfBounds(field)) {
+                    projectile.destroy();
                 }
             }
         }
+
     }
 
-    public void screenLabels(){ //to represent the labels of the score and lives
+    public void screenLabels() { //to represent the labels of the score and lives
 
-        if(gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory){
+        if (gameObjectFactory.getRepresentableFactory() instanceof SimpleGfxRepresentableFactory) {
             ((SimpleGfxScore) score).score();
             ((SimpleGfxLives) lives).lives();
             ((SimpleGfxLives) lives).getHearts();
@@ -258,7 +260,7 @@ public class GameLogic {
      *
      */
 
-    private void powerUpLogic(PowerUp []powerUps, Player player){
+    private void powerUpLogic(PowerUp[] powerUps, Player player) {
         for (PowerUp powerUp : powerUps) {
 
             if (powerUp != null) {
@@ -272,25 +274,20 @@ public class GameLogic {
                 }
             }
 
-            }
-
         }
+
+    }
 
     /*
      * Init
      */
 
     public void init() throws InterruptedException {
-        SimpleGfxInit init = new SimpleGfxInit(0,0);
+        SimpleGfxInit init = new SimpleGfxInit(0, 0);
         init.playAnimationDraw();
         Thread.sleep(2000);
         init.playAnimationDelete();
     }
-
-
-
-
-
 
 
 }
