@@ -21,6 +21,7 @@ public class GameLogic {
     private Representable score;
     private Representable lives;
     private int enemieRespawnTimer = 0;
+    private int powerupRespawnTimer = 0;
 
 
     public GameLogic(GameObjectFactory gameObjectFactory, ProjectileFactory projectileFactory) {
@@ -121,32 +122,37 @@ public class GameLogic {
 
     public void createPowerUps() {
 
-        for (int i = 0; i < POWERUP_LIMIT; i++) {
+        if (powerupRespawnTimer == 0) {
 
-            if (powerUps[i] == null || powerUps[i].isDestroyed()) {
+            for (int i = 0; i < POWERUP_LIMIT; i++) {
 
-                int minX = field.getW() / 2;
-                int posX = randomPosition(minX, field.getW() - 20);
-                int posY = randomPosition(20, field.getH() - 40);
+                if (powerUps[i] == null || powerUps[i].isDestroyed()) {
 
-                if (player.getX() != posX && player.getY() != posY) {
+                    int minX = field.getW() / 2;
+                    int posX = randomPosition(minX, field.getW() - 20);
+                    int posY = randomPosition(20, field.getH() - 40);
 
-                    for (int j = 0; j < POWERUP_LIMIT; j++) {
-                        if (powerUps[j] != null && !powerUps[j].isDestroyed()) {
-                            if (powerUps[j].getX() != posX && powerUps[j].getY() != posY) {
-                                powerUps[i] = (PowerUp) gameObjectFactory.createPowerUp(GameObjectType.POWERUP, posX, posY, 47, 53, player);
-                                return;
+                    if (player.getX() != posX && player.getY() != posY) {
+
+                        for (int j = 0; j < POWERUP_LIMIT; j++) {
+                            if (powerUps[j] != null && !powerUps[j].isDestroyed()) {
+                                if (powerUps[j].getX() != posX && powerUps[j].getY() != posY) {
+                                    powerUps[i] = (PowerUp) gameObjectFactory.createPowerUp(GameObjectType.POWERUP, posX, posY, 47, 53, player);
+                                    return;
+                                }
                             }
                         }
-                    }
 
-                    if (powerUps[i] == null || powerUps[i].isDestroyed()) {
-                        powerUps[i] = (PowerUp) gameObjectFactory.createPowerUp(GameObjectType.POWERUP, posX, posY, 47, 53, player);
-                        return;
+                        if (powerUps[i] == null || powerUps[i].isDestroyed()) {
+                            powerUps[i] = (PowerUp) gameObjectFactory.createPowerUp(GameObjectType.POWERUP, posX, posY, 47, 53, player);
+                            return;
+                        }
                     }
                 }
             }
+            powerupRespawnTimer = 100;
         }
+        powerupRespawnTimer--;
     }
 
 
