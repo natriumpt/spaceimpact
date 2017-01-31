@@ -193,10 +193,6 @@ public class GameLogic {
 
             }
 
-            // show player/score
-            // setScore in the shistory.txt file
-            // gameOver();
-
         }
 
         if (player.getLives() == 0){
@@ -317,8 +313,8 @@ public class GameLogic {
     public void gameOver() throws InterruptedException {
         SimpleGfxGameOver simpleGfxGameOver = new SimpleGfxGameOver(10, 10);
         simpleGfxGameOver.playAnimationDraw();
-        Thread.sleep(3000);
         System.out.println('\n' + "Player score: " + player.getScore());
+        Thread.sleep(3000);
         System.exit(0);
     }
 
