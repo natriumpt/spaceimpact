@@ -76,7 +76,7 @@ public class Player extends Ship {
     }
 
     public void respawn() {
-        respawnTimer = 66;
+        respawnTimer = 10;
         moveTo(720 / 4, 480 / 2);
         ((MovableRepresentable) getRepresentation()).respawn();
         setHitPoints(3);

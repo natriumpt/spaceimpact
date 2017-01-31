@@ -58,7 +58,7 @@ public class GameLogic {
 
         while (controllable.isRunning()) {
 
-            screenLabels();
+            //screenLabels();
             createPowerUps();
             createEnemies();
             fieldLogic(field, player);
@@ -160,27 +160,29 @@ public class GameLogic {
      */
     private void playerLogic(Field field, Player player) {
 
-        if (!player.isDestroyed()) {
+        if (player.getLives() > 0) {
+
 
             player.decreaseFireBuffer();
-            player.decreaseRespawnTimer();
             controllable.controlCycle(field);
 
+            if (player.isDestroyed()) {
+                player.decreaseRespawnTimer();
+                player.hasControl();
+
+            }
 
             if (player.getHitPoints() <= 0) {
 
                 player.destroy();
                 player.decreaseLives();
-                player.respawn(); // Still has no code
-
-                if (player.getLives() <= 0) {
-
-                    // show player/score
-                    // setScore in the shistory.txt file
-                    //gameOver();
-                }
+                player.respawn();
 
             }
+
+            // show player/score
+            // setScore in the shistory.txt file
+            //gameOver();
 
         }
 
@@ -200,6 +202,16 @@ public class GameLogic {
                     // TODO: Enemy behaviour
                     ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation(); // TODO: instance of SimpleGfx needed
                     enemy.updatePattern(enemy);
+
+                    if (player.comparePos(enemy)) {
+                        player.destroy();
+                        if(player.getLives()>0) {
+                            player.decreaseLives();
+                            player.respawn();
+                        }
+                        enemy.destroy();
+
+                    }
 
                     if (enemy.getHitPoints() <= 0) {
 
@@ -267,9 +279,9 @@ public class GameLogic {
                 if (!powerUp.isDestroyed()) {
                     ((SimpleGfxPowerUp) powerUp.getRepresentation()).playAnimation();
                     //usar update pattern do enemy do tiago?
-
                     if (player.comparePos(powerUp)) {
                         powerUp.destroy();
+                        player.increaseLives();
                     }
                 }
             }
