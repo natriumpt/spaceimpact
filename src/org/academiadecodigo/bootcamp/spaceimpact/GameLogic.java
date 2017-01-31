@@ -39,7 +39,7 @@ public class GameLogic {
      */
 
     public void init() throws InterruptedException {
-        SplashScreen splashScreen = (SplashScreen) gameObjectFactory.createObject(GameObjectType.SPLASHSCREEN, 0,0);
+        SplashScreen splashScreen = (SplashScreen) gameObjectFactory.createObject(GameObjectType.SPLASHSCREEN, 10,10);
         while(!((SimpleGfxSplash)splashScreen.getRepresentation()).isStarted()) {
             Thread.sleep(100);
         }
