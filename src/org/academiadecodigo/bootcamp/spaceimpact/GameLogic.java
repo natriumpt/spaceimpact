@@ -171,7 +171,7 @@ public class GameLogic {
     /*
         Player logic
      */
-    private void playerLogic(Field field, Player player) {
+    private void playerLogic(Field field, Player player) throws InterruptedException {
 
         if (player.getLives() > 0) {
 
@@ -197,6 +197,10 @@ public class GameLogic {
             // setScore in the shistory.txt file
             // gameOver();
 
+        }
+
+        if (player.getLives() == 0){
+            gameOver();
         }
 
     }
@@ -303,6 +307,18 @@ public class GameLogic {
         }
 
 
+    }
+
+
+    /*
+     * Game Over
+     */
+
+    public void gameOver() throws InterruptedException {
+        SimpleGfxGameOver simpleGfxGameOver = new SimpleGfxGameOver(10, 10);
+        simpleGfxGameOver.playAnimationDraw();
+        Thread.sleep(3000);
+        System.exit(0);
     }
 
 }

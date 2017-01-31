@@ -13,7 +13,7 @@ public class SimpleGfxSplash extends SimpleGfxRepresentable implements KeyboardH
     private boolean started;
 
     public SimpleGfxSplash(int x, int y) {
-        super(new Picture(x, y, "/init/spaceimpact_screen.png"));
+        super(new Picture(x, y, "/splashscreens/spaceimpact_screen.png"));
         initializeKeyboard();
     }
 
