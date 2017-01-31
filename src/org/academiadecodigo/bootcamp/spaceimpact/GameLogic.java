@@ -200,8 +200,11 @@ public class GameLogic {
      */
     private void enemyLogic(Enemy[] enemies) {
         for (Enemy enemy : enemies) {
+
             if (enemy != null) {
                 if (!enemy.isDestroyed()) {
+
+
                     // TODO: Enemy behaviour
                     ((SimpleGfxEnemy) enemy.getRepresentation()).playAnimation(); // TODO: instance of SimpleGfx needed
                     enemy.updatePattern(enemy);
@@ -223,6 +226,7 @@ public class GameLogic {
                     }
                 }
             }
+
         }
     }
 
@@ -246,13 +250,16 @@ public class GameLogic {
                                 projectile.destroy();
                             }
                         }
+
                     }
-                    if (projectile.outOfBounds(field)) {
-                        projectile.destroy();
-                    }
+
+                }
+                if (projectile.outOfBounds(field)) {
+                    projectile.destroy();
                 }
             }
         }
+
     }
 
     public void screenLabels() { //to represent the labels of the score and lives
