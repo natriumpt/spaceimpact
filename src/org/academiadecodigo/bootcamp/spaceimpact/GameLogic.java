@@ -265,7 +265,6 @@ public class GameLogic {
                 if (!powerUp.isDestroyed()) {
                     ((SimpleGfxPowerUp) powerUp.getRepresentation()).playAnimation();
                     //usar update pattern do enemy do tiago?
-
                     if (player.comparePos(powerUp)) {
                         powerUp.destroy();
                     }
