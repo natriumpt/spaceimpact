@@ -267,6 +267,7 @@ public class GameLogic {
                     //usar update pattern do enemy do tiago?
                     if (player.comparePos(powerUp)) {
                         powerUp.destroy();
+                        player.increaseLives();
                     }
                 }
             }
